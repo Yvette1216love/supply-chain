@@ -116,4 +116,80 @@ const MODULES = {
 };
 const ORDER = ['overview','substrate','power','thermal'];
 const TIMEOUT_MS = 9000;
-const
+const tabsEl = document.getElementById('tabs');
+const mainEl = document.getElementById('main');
+const hdrEl  = document.getElementById('hdr');
+const panes  = {};
+
+function buildTabs(){
+  ORDER.forEach(key => {
+    const m = MODULES[key];
+    const btn = document.createElement('button');
+    btn.className = 'tab' + (key==='overview' ? ' active' : '');
+    btn.dataset.mod = key;
+    btn.style.setProperty('--accent', m.color);
+    btn.innerHTML = '<span class="dot"></span><span class="ic">'+m.icon+'</span>'+m.label+'<span class="sub">'+m.sub+'</span>';
+    btn.addEventListener('click', () => activate(key, true));
+    tabsEl.appendChild(btn);
+  });
+}
+
+function buildPane(key){
+  const m = MODULES[key];
+  const pane = document.createElement('div');
+  pane.className = 'pane';
+  pane.style.setProperty('--accent', m.color);
+  pane.innerHTML =
+    '<div class="frame-tools">'+
+    '<a href="'+m.url+'" target="_blank" rel="noopener">在新分頁開啟 ↗</a>'+
+    '<button class="reload-btn">重新整理</button>'+
+    '</div>'+
+    '<div class="state-layer">'+
+    '<div class="spinner"></div>'+
+    '<div class="state-label">載入 '+m.label+'…</div>'+
+    '<div class="state-warn">'+
+    '<p>載入時間較長，連結可能已過期或暫時不可用。</p>'+
+    '<a href="'+m.url+'" target="_blank" rel="noopener">直接在新分頁開啟 ↗</a>'+
+    '</div></div>';
+  mainEl.appendChild(pane);
+  panes[key] = pane;
+  pane.querySelector('.reload-btn').addEventListener('click', () => loadModule(key, true));
+  return pane;
+}
+
+function loadModule(key, force){
+  const m = MODULES[key];
+  const pane = panes[key] || buildPane(key);
+  const state = pane.querySelector('.state-layer');
+  const warn  = pane.querySelector('.state-warn');
+  let iframe  = pane.querySelector('iframe');
+  if (iframe && !force) return;
+  if (iframe) iframe.remove();
+  state.classList.remove('hidden');
+  warn.style.display = 'none';
+  iframe = document.createElement('iframe');
+  iframe.title = m.label;
+  iframe.src = m.url;
+  pane.appendChild(iframe);
+  const timer = setTimeout(() => { warn.style.display = 'flex'; }, TIMEOUT_MS);
+  iframe.addEventListener('load', () => { clearTimeout(timer); state.classList.add('hidden'); });
+}
+
+function activate(key, push){
+  if (!MODULES[key]) key = 'overview';
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.mod===key));
+  Object.values(panes).forEach(p => p.classList.remove('active'));
+  if (!panes[key]) buildPane(key);
+  panes[key].classList.add('active');
+  hdrEl.style.borderBottomColor = MODULES[key].color;
+  document.title = MODULES[key].label + ' · AI 硬體供應鏈控制台';
+  loadModule(key, false);
+  if (push) history.pushState(null, '', '#'+key);
+}
+
+window.addEventListener('popstate', () => activate(location.hash.replace('#',''), false));
+buildTabs();
+activate(location.hash.replace('#','') || 'overview', false);
+</script>
+</body>
+</html>
