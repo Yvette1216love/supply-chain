@@ -1,1 +1,924 @@
-<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" id="u0" href="https://zh-tw.rakko.tools/tools/129/lib/tinymce/skins/ui/oxide/content.min.css"><link rel="stylesheet" type="text/css" id="u1" href="https://zh-tw.rakko.tools/tools/129/lib/tinymce/skins/content/default/content.min.css"></head><body id="tinymce" class="mce-content-body " data-id="content" contenteditable="true" spellcheck="false"><p>&lt;!DOCTYPE html&gt;<br>&lt;html lang="zh-Hant"&gt;<br>&lt;head&gt;<br>&lt;meta charset="UTF-8"&gt;<br>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;<br>&lt;title&gt;IC載板供應鏈地圖｜礦砂到AI伺服器&lt;/title&gt;<br>&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;<br>&lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;<br>&lt;link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&amp;family=Noto+Sans+TC:wght@400;500;700;900&amp;display=swap" rel="stylesheet"&gt;<br>&lt;style&gt;<br>&nbsp; :root{<br>&nbsp; &nbsp; --bg:#0D1410;<br>&nbsp; &nbsp; --bg-2:#0F1713;<br>&nbsp; &nbsp; --panel:#16201A;<br>&nbsp; &nbsp; --panel-2:#1C2922;<br>&nbsp; &nbsp; --panel-hover:#22312A;<br>&nbsp; &nbsp; --hair:#2A3A32;<br>&nbsp; &nbsp; --hair-soft:#202E27;<br>&nbsp; &nbsp; --text:#EBEFE6;<br>&nbsp; &nbsp; --text-dim:#9CAB9D;<br>&nbsp; &nbsp; --text-faint:#6E7E72;<br>&nbsp; &nbsp; --copper:#C9783F;<br>&nbsp; &nbsp; --copper-bright:#E2A268;<br>&nbsp; &nbsp; --gold:#D9B24C;<br>&nbsp; &nbsp; --lane-cu:#C9783F;<br>&nbsp; &nbsp; --lane-gl:#6FB6C4;<br>&nbsp; &nbsp; --lane-abf:#E0A33D;<br>&nbsp; &nbsp; --lane-bt:#A487D9;<br>&nbsp; &nbsp; --lane-proc:#7E8F84;<br>&nbsp; &nbsp; --lane-maker:#D9B24C;<br>&nbsp; &nbsp; --lane-osat:#6FA89F;<br>&nbsp; &nbsp; --lane-end:#7C92C9;<br>&nbsp; --glass:#5AA9E0;<br>&nbsp; &nbsp; --radius:10px;<br>&nbsp; &nbsp; --mono:'IBM Plex Mono', ui-monospace, monospace;<br>&nbsp; &nbsp; --sans:'Noto Sans TC','PingFang TC','Microsoft JhengHei', sans-serif;<br>&nbsp; }<br>&nbsp; *{box-sizing:border-box;}<br>&nbsp; html{scroll-behavior:smooth;}<br>&nbsp; @media (prefers-reduced-motion: reduce){<br>&nbsp; &nbsp; html{scroll-behavior:auto;}<br>&nbsp; &nbsp; *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}<br>&nbsp; }<br>&nbsp; body{<br>&nbsp; &nbsp; margin:0;<br>&nbsp; &nbsp; background:<br>&nbsp; &nbsp; &nbsp; radial-gradient(ellipse at top, rgba(201,120,63,0.07), transparent 55%),<br>&nbsp; &nbsp; &nbsp; repeating-linear-gradient(0deg, rgba(255,255,255,0.018) 0px, rgba(255,255,255,0.018) 1px, transparent 1px, transparent 28px),<br>&nbsp; &nbsp; &nbsp; repeating-linear-gradient(90deg, rgba(255,255,255,0.018) 0px, rgba(255,255,255,0.018) 1px, transparent 1px, transparent 28px),<br>&nbsp; &nbsp; &nbsp; var(--bg);<br>&nbsp; &nbsp; color:var(--text);<br>&nbsp; &nbsp; font-family:var(--sans);<br>&nbsp; &nbsp; font-size:15.5px;<br>&nbsp; &nbsp; line-height:1.7;<br>&nbsp; &nbsp; -webkit-font-smoothing:antialiased;<br>&nbsp; }<br>&nbsp; .wrap{max-width:1180px; margin:0 auto; padding:0 18px;}<br>&nbsp; a{color:var(--copper-bright);}</p><p>&nbsp; /* ---------- Header / Hero ---------- */<br>&nbsp; header.hero{padding:48px 0 28px; border-bottom:1px solid var(--hair);}<br>&nbsp; .eyebrow{<br>&nbsp; &nbsp; font-family:var(--mono); font-size:11.5px; letter-spacing:.18em; text-transform:uppercase;<br>&nbsp; &nbsp; color:var(--copper-bright); display:flex; align-items:center; gap:10px; margin-bottom:14px;<br>&nbsp; }<br>&nbsp; .eyebrow::before{content:""; width:22px; height:1px; background:var(--copper);}<br>&nbsp; h1{<br>&nbsp; &nbsp; font-family:var(--mono); font-weight:700;<br>&nbsp; &nbsp; font-size:clamp(1.6rem, 4.2vw, 2.5rem);<br>&nbsp; &nbsp; margin:0 0 10px; letter-spacing:-0.01em; color:var(--text);<br>&nbsp; }<br>&nbsp; h1 span{color:var(--copper-bright);}<br>&nbsp; .hero p.lede{max-width:640px; color:var(--text-dim); font-size:15.5px; margin:0 0 22px;}</p><p>&nbsp; .flowstrip{<br>&nbsp; &nbsp; display:flex; flex-wrap:wrap; align-items:center; gap:8px;<br>&nbsp; &nbsp; font-family:var(--mono); font-size:12.5px; color:var(--text-dim);<br>&nbsp; &nbsp; margin-bottom:26px; padding:12px 14px; background:var(--panel); border:1px solid var(--hair); border-radius:var(--radius);<br>&nbsp; }<br>&nbsp; .flowstrip b{color:var(--text); font-weight:600;}<br>&nbsp; .flowstrip .arrow{color:var(--copper); opacity:.8;}</p><p>&nbsp; .stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:12px; margin-bottom:8px;}<br>&nbsp; .stat{background:var(--panel); border:1px solid var(--hair); border-radius:var(--radius); padding:14px 16px;}<br>&nbsp; .stat .num{font-family:var(--mono); font-size:1.5rem; font-weight:700; color:var(--copper-bright);}<br>&nbsp; .stat .lbl{font-size:12.5px; color:var(--text-dim); margin-top:4px;}</p><p>&nbsp; /* stackup decorative bar */<br>&nbsp; .stackup{display:flex; gap:3px; margin:26px 0 4px; height:34px;}<br>&nbsp; .stackup div{flex:1; border-radius:3px; display:flex; align-items:center; justify-content:center;<br>&nbsp; &nbsp; font-family:var(--mono); font-size:10.5px; color:#0D1410; font-weight:700; letter-spacing:.03em;<br>&nbsp; &nbsp; opacity:0; animation:rise .5s ease forwards;}<br>&nbsp; .stackup div:nth-child(1){background:var(--lane-cu); animation-delay:.02s;}<br>&nbsp; .stackup div:nth-child(2){background:var(--lane-gl); animation-delay:.08s;}<br>&nbsp; .stackup div:nth-child(3){background:var(--lane-abf); animation-delay:.14s;}<br>&nbsp; .stackup div:nth-child(4){background:var(--lane-proc); animation-delay:.2s;}<br>&nbsp; .stackup div:nth-child(5){background:var(--lane-maker); animation-delay:.26s;}<br>&nbsp; .stackup div:nth-child(6){background:var(--lane-osat); animation-delay:.32s;}<br>&nbsp; .stackup div:nth-child(7){background:var(--lane-end); animation-delay:.38s;}<br>&nbsp; @keyframes rise{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}</p><p>&nbsp; /* ---------- Sticky nav ---------- */<br>&nbsp; nav.pills{<br>&nbsp; &nbsp; position:sticky; top:0; z-index:30;<br>&nbsp; &nbsp; background:rgba(13,20,16,0.92); backdrop-filter:blur(6px);<br>&nbsp; &nbsp; border-bottom:1px solid var(--hair);<br>&nbsp; &nbsp; overflow-x:auto; white-space:nowrap;<br>&nbsp; }<br>&nbsp; nav.pills .wrap{display:flex; gap:6px; padding:10px 18px;}<br>&nbsp; nav.pills a{<br>&nbsp; &nbsp; font-family:var(--mono); font-size:12px; color:var(--text-dim); text-decoration:none;<br>&nbsp; &nbsp; padding:7px 12px; border-radius:999px; border:1px solid var(--hair); flex:0 0 auto;<br>&nbsp; &nbsp; transition:all .15s ease;<br>&nbsp; }<br>&nbsp; nav.pills a:hover{color:var(--text); border-color:var(--copper); background:var(--panel);}</p><p>&nbsp; /* ---------- Legend ---------- */<br>&nbsp; .legend{display:flex; flex-wrap:wrap; gap:16px; padding:18px 0; font-size:12.5px; color:var(--text-dim);}<br>&nbsp; .legend .item{display:flex; align-items:center; gap:7px;}<br>&nbsp; .legend .dot{width:9px; height:9px; border-radius:2px; display:inline-block;}</p><p>&nbsp; /* ---------- Tier sections ---------- */<br>&nbsp; section.tier{padding:34px 0; border-top:1px dashed var(--hair-soft);}<br>&nbsp; section.tier:first-of-type{border-top:none;}<br>&nbsp; .tier-head{margin-bottom:18px;}<br>&nbsp; .tier-tag{font-family:var(--mono); font-size:11px; letter-spacing:.12em; color:var(--text-faint); text-transform:uppercase;}<br>&nbsp; .tier-head h2{font-family:var(--mono); font-size:1.15rem; margin:4px 0 6px; color:var(--text); font-weight:600;}<br>&nbsp; .tier-head p{margin:0; color:var(--text-dim); font-size:14px; max-width:680px;}</p><p>&nbsp; .lane-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:13px;}<br>&nbsp; .conn-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:13px; height:26px; margin:2px 0;}<br>&nbsp; .conn{display:flex; align-items:center; justify-content:center; position:relative;}<br>&nbsp; .conn::before{content:""; width:1px; height:100%; background:linear-gradient(var(--hair), var(--c, var(--copper)), var(--hair));}<br>&nbsp; .conn::after{content:""; position:absolute; width:6px; height:6px; border-radius:50%; background:var(--c, var(--copper)); border:2px solid var(--bg);}<br>&nbsp; .conn[data-c="cu"]{--c:var(--lane-cu);}<br>&nbsp; .conn[data-c="gl"]{--c:var(--lane-gl);}<br>&nbsp; .conn[data-c="abf"]{--c:var(--lane-abf);}<br>&nbsp; .conn[data-c="bt"]{--c:var(--lane-bt);}</p><p>&nbsp; @media (max-width:880px){<br>&nbsp; &nbsp; .lane-grid, .conn-grid{grid-template-columns:repeat(2,1fr);}<br>&nbsp; }<br>&nbsp; @media (max-width:520px){<br>&nbsp; &nbsp; .lane-grid, .conn-grid{grid-template-columns:1fr;}<br>&nbsp; &nbsp; .conn-grid{height:20px;}<br>&nbsp; }</p><p>&nbsp; .group-wrap{display:flex; flex-direction:column; gap:22px;}<br>&nbsp; .group-head{display:flex; align-items:center; gap:9px; margin-bottom:10px;}<br>&nbsp; .group-head .flag{font-size:18px;}<br>&nbsp; .group-head h3{font-family:var(--mono); font-size:13px; letter-spacing:.05em; color:var(--text-dim); margin:0; font-weight:500;}<br>&nbsp; .group-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(225px,1fr)); gap:13px;}</p><p>&nbsp; /* ---------- Node Card ---------- */<br>&nbsp; .node-card{<br>&nbsp; &nbsp; text-align:left; cursor:pointer; width:100%;<br>&nbsp; &nbsp; background:var(--panel); border:1px solid var(--hair); border-top:3px solid var(--c, var(--copper));<br>&nbsp; &nbsp; border-radius:var(--radius); padding:14px 15px; color:var(--text); font-family:var(--sans);<br>&nbsp; &nbsp; transition:transform .15s ease, background .15s ease, border-color .15s ease;<br>&nbsp; &nbsp; display:flex; flex-direction:column; gap:6px; position:relative;<br>&nbsp; }<br>&nbsp; .node-card:hover, .node-card:focus-visible{background:var(--panel-hover); transform:translateY(-2px); border-color:var(--hair); outline:none;}<br>&nbsp; .node-card:focus-visible{box-shadow:0 0 0 2px var(--copper);}<br>&nbsp; .node-card .badge{<br>&nbsp; &nbsp; position:absolute; top:-9px; right:10px; font-family:var(--mono); font-size:9.5px; letter-spacing:.04em;<br>&nbsp; &nbsp; background:var(--gold); color:#1A1306; padding:2px 7px; border-radius:999px; font-weight:700;<br>&nbsp; }<br>&nbsp; .node-card .badge.warn{background:#8A6A6A; color:#fff;}<br>&nbsp; .node-card .eyebrow2{font-family:var(--mono); font-size:10px; color:var(--text-faint); letter-spacing:.04em;}<br>&nbsp; .node-card h3{margin:0; font-size:15.5px; font-weight:700; color:var(--text);}<br>&nbsp; .node-card .en{font-family:var(--mono); font-size:10.5px; color:var(--text-faint); margin-top:-4px;}<br>&nbsp; .node-card .role{font-size:12.5px; color:var(--text-dim); margin:2px 0 0; line-height:1.55;}<br>&nbsp; .node-card .chips{display:flex; flex-wrap:wrap; gap:5px; margin-top:6px;}<br>&nbsp; .chip{<br>&nbsp; &nbsp; font-family:var(--mono); font-size:10.5px; background:var(--panel-2); border:1px solid var(--hair);<br>&nbsp; &nbsp; padding:2px 7px; border-radius:5px; color:var(--text-dim); display:inline-flex; align-items:center; gap:4px;<br>&nbsp; }<br>&nbsp; .chip b{color:var(--text); font-weight:600;}<br>&nbsp; .node-card .tap{font-size:10.5px; color:var(--text-faint); margin-top:auto; padding-top:4px;}</p><p>&nbsp; .merge-card{<br>&nbsp; &nbsp; margin-top:13px; background:var(--panel-2); border:1px dashed var(--hair); border-radius:var(--radius);<br>&nbsp; &nbsp; padding:14px 16px; cursor:pointer; transition:background .15s ease;<br>&nbsp; }<br>&nbsp; .merge-card:hover{background:var(--panel-hover);}<br>&nbsp; .merge-card .arrowrow{font-family:var(--mono); font-size:11px; color:var(--text-faint); margin-bottom:4px;}</p><p>&nbsp; .merge-banner{<br>&nbsp; &nbsp; text-align:center; font-family:var(--mono); font-size:12px; color:var(--text-faint);<br>&nbsp; &nbsp; padding:14px 0; letter-spacing:.04em;<br>&nbsp; }<br>&nbsp; .merge-banner b{color:var(--copper-bright);}</p><p>&nbsp; .compare-card{background:var(--panel); border:1px solid var(--hair); border-radius:var(--radius); padding:18px; margin-bottom:18px;}<br>&nbsp; .compare-card h3{margin:0 0 4px; font-size:15.5px; color:var(--text);}<br>&nbsp; .compare-card .sub{font-size:12.5px; color:var(--text-dim); margin-bottom:14px;}<br>&nbsp; .compare-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px;}<br>&nbsp; @media (max-width:640px){.compare-grid{grid-template-columns:1fr;}}<br>&nbsp; .compare-col{background:var(--panel-2); border:1px solid var(--hair); border-radius:8px; padding:14px;}<br>&nbsp; .compare-col.old{border-top:3px solid var(--lane-gl);}<br>&nbsp; .compare-col.new{border-top:3px solid var(--glass);}<br>&nbsp; .compare-col h4{margin:0 0 9px; font-family:var(--mono); font-size:11px; letter-spacing:.05em; text-transform:uppercase; color:var(--text-dim);}<br>&nbsp; .compare-col ul{margin:0; padding-left:16px; font-size:13.5px; color:var(--text-dim); line-height:1.65;}<br>&nbsp; .compare-col ul li{margin-bottom:5px;}<br>&nbsp; .compare-foot{margin-top:14px; font-size:12.5px; color:var(--text-dim); border-top:1px dashed var(--hair-soft); padding-top:10px; line-height:1.6;}</p><p>&nbsp; /* ---------- Footer title block ---------- */<br>&nbsp; footer{padding:40px 0 60px;}<br>&nbsp; .stamp{<br>&nbsp; &nbsp; border:1px solid var(--hair); border-radius:var(--radius); background:var(--panel);<br>&nbsp; &nbsp; padding:20px 22px; font-family:var(--mono); font-size:12px; color:var(--text-dim);<br>&nbsp; }<br>&nbsp; .stamp .row{display:flex; flex-wrap:wrap; gap:6px 14px; padding:7px 0; border-top:1px solid var(--hair-soft);}<br>&nbsp; .stamp .row:first-child{border-top:none; padding-top:0;}<br>&nbsp; .stamp .row .k{color:var(--text-faint); min-width:96px; flex:0 0 auto;}<br>&nbsp; .stamp .row .v{color:var(--text-dim); flex:1 1 200px;}<br>&nbsp; .stamp .title{font-size:14px; color:var(--text); font-weight:600; margin-bottom:10px;}</p><p>&nbsp; /* ---------- Modal ---------- */<br>&nbsp; .modal-overlay{<br>&nbsp; &nbsp; position:fixed; inset:0; background:rgba(8,12,10,0.78); backdrop-filter:blur(2px);<br>&nbsp; &nbsp; display:flex; align-items:flex-end; justify-content:center; z-index:100; padding:0;<br>&nbsp; }<br>&nbsp; @media (min-width:680px){<br>&nbsp; &nbsp; .modal-overlay{align-items:center; padding:24px;}<br>&nbsp; }<br>&nbsp; .modal-overlay[hidden]{display:none;}<br>&nbsp; .modal{<br>&nbsp; &nbsp; background:var(--bg-2); border:1px solid var(--hair); border-radius:14px 14px 0 0;<br>&nbsp; &nbsp; max-width:560px; width:100%; max-height:88vh; overflow-y:auto; position:relative;<br>&nbsp; &nbsp; padding:26px 22px 24px; animation:slideup .22s ease;<br>&nbsp; }<br>&nbsp; @media (min-width:680px){<br>&nbsp; &nbsp; .modal{border-radius:14px; padding:30px 28px 26px;}<br>&nbsp; }<br>&nbsp; @keyframes slideup{from{transform:translateY(16px); opacity:0;} to{transform:translateY(0); opacity:1;}}<br>&nbsp; .modal::before, .modal::after{<br>&nbsp; &nbsp; content:""; position:absolute; width:16px; height:16px; border-color:var(--copper); opacity:.55;<br>&nbsp; }<br>&nbsp; .modal::before{top:10px; left:10px; border-top:2px solid; border-left:2px solid;}<br>&nbsp; .modal::after{bottom:10px; right:10px; border-bottom:2px solid; border-right:2px solid;}<br>&nbsp; .modal .close{<br>&nbsp; &nbsp; position:absolute; top:16px; right:16px; background:var(--panel); border:1px solid var(--hair);<br>&nbsp; &nbsp; color:var(--text-dim); width:30px; height:30px; border-radius:50%; cursor:pointer; font-size:16px;<br>&nbsp; &nbsp; display:flex; align-items:center; justify-content:center; line-height:1;<br>&nbsp; }<br>&nbsp; .modal .close:hover{color:var(--text); border-color:var(--copper);}<br>&nbsp; .modal .m-eyebrow{font-family:var(--mono); font-size:11px; letter-spacing:.08em; color:var(--copper-bright); text-transform:uppercase;}<br>&nbsp; .modal h2{font-size:1.2rem; margin:8px 0 2px; font-weight:700; padding-right:26px;}<br>&nbsp; .modal .m-en{font-family:var(--mono); font-size:12px; color:var(--text-faint); margin-bottom:14px;}<br>&nbsp; .modal h4{<br>&nbsp; &nbsp; font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase;<br>&nbsp; &nbsp; color:var(--text-faint); margin:18px 0 8px; display:flex; align-items:center; gap:8px;<br>&nbsp; }<br>&nbsp; .modal h4::after{content:""; flex:1; height:1px; background:var(--hair);}<br>&nbsp; .modal ul.bullets{margin:0; padding-left:18px; color:var(--text-dim); font-size:14px; line-height:1.7;}<br>&nbsp; .modal ul.bullets li{margin-bottom:6px;}<br>&nbsp; .co-row{<br>&nbsp; &nbsp; display:flex; flex-wrap:wrap; align-items:baseline; gap:8px; padding:9px 0; border-bottom:1px solid var(--hair-soft);<br>&nbsp; }<br>&nbsp; .co-row:last-child{border-bottom:none;}<br>&nbsp; .co-row .flag{font-size:15px;}<br>&nbsp; .co-row .name{font-weight:600; font-size:14px;}<br>&nbsp; .co-row .ticker{font-family:var(--mono); font-size:11px; background:var(--panel); border:1px solid var(--hair); padding:1px 7px; border-radius:5px; color:var(--copper-bright);}<br>&nbsp; .co-row .note{flex-basis:100%; font-size:12.5px; color:var(--text-dim); margin-top:2px;}<br>&nbsp; .invest-box{<br>&nbsp; &nbsp; margin-top:16px; background:rgba(217,178,76,0.08); border:1px solid rgba(217,178,76,0.35);<br>&nbsp; &nbsp; border-radius:8px; padding:12px 14px; font-size:13.5px; color:#E8D9A8; line-height:1.65;<br>&nbsp; }<br>&nbsp; .invest-box .lbl{font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; color:var(--gold); margin-bottom:4px; display:block;}<br>&nbsp; .chain-row{display:flex; flex-wrap:wrap; gap:8px; font-size:12.5px; color:var(--text-dim); margin-top:6px;}<br>&nbsp; .chain-row .k{font-family:var(--mono); font-size:10px; color:var(--text-faint);}</p><p>&nbsp; .disclaimer{font-size:11px; color:var(--text-faint); margin-top:18px; line-height:1.6;}<br>&lt;/style&gt;<br>&lt;/head&gt;<br>&lt;body&gt;</p><p>&lt;header class="hero"&gt;<br>&nbsp; &lt;div class="wrap"&gt;<br>&nbsp; &nbsp; &lt;div class="eyebrow"&gt;SUPPLY CHAIN SCHEMATIC · 產業地圖&lt;/div&gt;<br>&nbsp; &nbsp; &lt;h1&gt;IC載板供應鏈&lt;span&gt;．&lt;/span&gt;從礦砂到AI伺服器&lt;/h1&gt;<br>&nbsp; &nbsp; &lt;p class="lede"&gt;把整條供應鏈當作一片多層板的疊構來看：原礦與石化原料是最底層，往上一層層壓合出材料、載板、封裝，最後才露出大家熟悉的 NVIDIA、AMD、Intel。點任一張卡片看細節與相關公司。&lt;/p&gt;</p><p>&nbsp; &nbsp; &lt;div class="flowstrip"&gt;<br>&nbsp; &nbsp; &nbsp; &lt;b&gt;日本掌握關鍵材料&lt;/b&gt;&lt;span class="arrow"&gt;→&lt;/span&gt;&lt;b&gt;台／日／韓／奧載板廠製造&lt;/b&gt;&lt;span class="arrow"&gt;→&lt;/span&gt;&lt;b&gt;封裝測試廠組裝&lt;/b&gt;&lt;span class="arrow"&gt;→&lt;/span&gt;&lt;b&gt;AI伺服器・PC・手機&lt;/b&gt;<br>&nbsp; &nbsp; &lt;/div&gt;</p><p>&nbsp; &nbsp; &lt;div class="stats"&gt;<br>&nbsp; &nbsp; &nbsp; &lt;div class="stat"&gt;&lt;div class="num"&gt;35–55%&lt;/div&gt;&lt;div class="lbl"&gt;IC載板佔半導體封裝製程成本比重&lt;/div&gt;&lt;/div&gt;<br>&nbsp; &nbsp; &nbsp; &lt;div class="stat"&gt;&lt;div class="num"&gt;32.8%&lt;/div&gt;&lt;div class="lbl"&gt;台灣全球載板產值市占（第一）&lt;/div&gt;&lt;/div&gt;<br>&nbsp; &nbsp; &nbsp; &lt;div class="stat"&gt;&lt;div class="num"&gt;~95%&lt;/div&gt;&lt;div class="lbl"&gt;味の素 ABF增層膜全球市占&lt;/div&gt;&lt;/div&gt;<br>&nbsp; &nbsp; &nbsp; &lt;div class="stat"&gt;&lt;div class="num"&gt;~22.7%&lt;/div&gt;&lt;div class="lbl"&gt;AI/HPC應用 2024–2030 預估CAGR&lt;/div&gt;&lt;/div&gt;<br>&nbsp; &nbsp; &lt;/div&gt;</p><p>&nbsp; &nbsp; &lt;div class="stackup" aria-hidden="true"&gt;<br>&nbsp; &nbsp; &nbsp; &lt;div&gt;L1&lt;/div&gt;&lt;div&gt;L2&lt;/div&gt;&lt;div&gt;L3&lt;/div&gt;&lt;div&gt;L4&lt;/div&gt;&lt;div&gt;L5&lt;/div&gt;&lt;div&gt;L6&lt;/div&gt;&lt;div&gt;L7&lt;/div&gt;<br>&nbsp; &nbsp; &lt;/div&gt;<br>&nbsp; &lt;/div&gt;<br>&lt;/header&gt;</p><p>&lt;nav class="pills" aria-label="供應鏈層級導覽"&gt;<br>&nbsp; &lt;div class="wrap"&gt;<br>&nbsp; &nbsp; &lt;a href="#l1"&gt;L1 礦業／石化&lt;/a&gt;<br>&nbsp; &nbsp; &lt;a href="#l2"&gt;L2 化工中間體&lt;/a&gt;<br>&nbsp; &nbsp; &lt;a href="#l3"&gt;L3 關鍵材料&lt;/a&gt;<br>&nbsp; &nbsp; &lt;a href="#lg" style="border-color:rgba(90,169,224,.5); color:#9CC7E8;"&gt;GX 玻璃基板&lt;/a&gt;<br>&nbsp; &nbsp; &lt;a href="#l4"&gt;L4 製程設備&lt;/a&gt;<br>&nbsp; &nbsp; &lt;a href="#l5"&gt;L5 載板製造&lt;/a&gt;<br>&nbsp; &nbsp; &lt;a href="#l6"&gt;L6 封裝測試&lt;/a&gt;<br>&nbsp; &nbsp; &lt;a href="#l7"&gt;L7 終端應用&lt;/a&gt;<br>&nbsp; &lt;/div&gt;<br>&lt;/nav&gt;</p><p>&lt;main class="wrap"&gt;</p><p>&nbsp; &lt;div class="legend"&gt;<br>&nbsp; &nbsp; &lt;span class="item"&gt;&lt;span class="dot" style="background:var(--lane-cu)"&gt;&lt;/span&gt;銅 Copper 支線&lt;/span&gt;<br>&nbsp; &nbsp; &lt;span class="item"&gt;&lt;span class="dot" style="background:var(--lane-gl)"&gt;&lt;/span&gt;玻纖 Glass 支線&lt;/span&gt;<br>&nbsp; &nbsp; &lt;span class="item"&gt;&lt;span class="dot" style="background:var(--lane-abf)"&gt;&lt;/span&gt;ABF環氧樹脂支線&lt;/span&gt;<br>&nbsp; &nbsp; &lt;span class="item"&gt;&lt;span class="dot" style="background:var(--lane-bt)"&gt;&lt;/span&gt;BT樹脂支線&lt;/span&gt;<br>&nbsp; &nbsp; &lt;span class="item"&gt;&lt;span class="dot" style="background:var(--gold)"&gt;&lt;/span&gt;關鍵獨占／高關注&lt;/span&gt;<br>&nbsp; &nbsp; &lt;span class="item"&gt;&lt;span class="dot" style="background:var(--glass)"&gt;&lt;/span&gt;玻璃基板（新興技術）&lt;/span&gt;<br>&nbsp; &nbsp; &lt;span class="item"&gt;🇹🇼🇯🇵🇰🇷🇦🇹🇺🇸🇨🇳 = 公司所在地&lt;/span&gt;<br>&nbsp; &lt;/div&gt;</p><p>&nbsp; &lt;section class="tier" id="l1"&gt;<br>&nbsp; &nbsp; &lt;div class="tier-head"&gt;<br>&nbsp; &nbsp; &nbsp; &lt;div class="tier-tag"&gt;Layer 01&lt;/div&gt;<br>&nbsp; &nbsp; &nbsp; &lt;h2&gt;礦業／石化基礎原料&lt;/h2&gt;<br>&nbsp; &nbsp; &nbsp; &lt;p&gt;整條供應鏈最底層，也是最貼近大宗商品與地緣政治的一層。四條支線在這裡同時起跑：銅、玻璃用礦物，以及分岔成兩條路徑的石油化學原料。&lt;/p&gt;<br>&nbsp; &nbsp; &lt;/div&gt;<br>&nbsp; &nbsp; &lt;div class="lane-grid" id="grid-l1"&gt;&lt;/div&gt;<br>&nbsp; &lt;/section&gt;</p><p>&nbsp; &lt;section class="tier" id="l2"&gt;<br>&nbsp; &nbsp; &lt;div class="tier-head"&gt;<br>&nbsp; &nbsp; &nbsp; &lt;div class="tier-tag"&gt;Layer 02&lt;/div&gt;<br>&nbsp; &nbsp; &nbsp; &lt;h2&gt;化工中間體&lt;/h2&gt;<br>&nbsp; &nbsp; &nbsp; &lt;p&gt;原礦與石油被加工成半成品：電解液、玻璃熔液、樹脂前驅體。這一層幾乎沒有單一上市公司能直接對應，但決定了下一層材料的品質上限。&lt;/p&gt;<br>&nbsp; &nbsp; &lt;/div&gt;<br>&nbsp; &nbsp; &lt;div class="conn-grid" id="conn-12"&gt;<br>&nbsp; &nbsp; &nbsp; &lt;div class="conn" data-c="cu"&gt;&lt;/div&gt;&lt;div class="conn" data-c="gl"&gt;&lt;/div&gt;&lt;div class="conn" data-c="abf"&gt;&lt;/div&gt;&lt;div class="conn" data-c="bt"&gt;&lt;/div&gt;<br>&nbsp; &nbsp; &lt;/div&gt;<br>&nbsp; &nbsp; &lt;div class="lane-grid" id="grid-l2"&gt;&lt;/div&gt;<br>&nbsp; &lt;/section&gt;</p><p>&nbsp; &lt;section class="tier" id="l3"&gt;<br>&nbsp; &nbsp; &lt;div class="tier-head"&gt;<br>&nbsp; &nbsp; &nbsp; &lt;div class="tier-tag"&gt;Layer 03&lt;/div&gt;<br>&nbsp; &nbsp; &nbsp; &lt;h2&gt;結構性關鍵材料&lt;/h2&gt;<br>&nbsp; &nbsp; &nbsp; &lt;p&gt;真正卡關的一層。ABF增層膜、BT樹脂基材、T-glass玻纖布、超薄電解銅箔，背後幾乎都站著一兩家日商，是整條鏈議價權最集中的地方。&lt;/p&gt;<br>&nbsp; &nbsp; &lt;/div&gt;<br>&nbsp; &nbsp; &lt;div class="conn-grid" id="conn-23"&gt;<br>&nbsp; &nbsp; &nbsp; &lt;div class="conn" data-c="cu"&gt;&lt;/div&gt;&lt;div class="conn" data-c="gl"&gt;&lt;/div&gt;&lt;div class="conn" data-c="abf"&gt;&lt;/div&gt;&lt;div class="conn" data-c="bt"&gt;&lt;/div&gt;<br>&nbsp; &nbsp; &lt;/div&gt;<br>&nbsp; &nbsp; &lt;div class="lane-grid" id="grid-l3"&gt;&lt;/div&gt;<br>&nbsp; &nbsp; &lt;div id="merge-l3"&gt;&lt;/div&gt;<br>&nbsp; &lt;/section&gt;</p><p>&nbsp; &lt;section class="tier" id="lg"&gt;<br>&nbsp; &nbsp; &lt;div class="tier-head"&gt;<br>&nbsp; &nbsp; &nbsp; &lt;div class="tier-tag" style="color:#9CC7E8;"&gt;Emerging Track · 平行賽道&lt;/div&gt;<br>&nbsp; &nbsp; &nbsp; &lt;h2&gt;玻璃基板 Glass Core Substrate：挑戰ABF/BT的下一代核心材料&lt;/h2&gt;<br>&nbsp; &nbsp; &nbsp; &lt;p&gt;把玻璃直接當成載板的「核心層」，取代L3裡的ABF或BT樹脂基材：幾乎不翹曲、線路可以做得比有機載板更細、訊號損耗更低。代價是玻璃很脆、現階段成本高、良率還在爬升。這條賽道目前仍在打樣／試產階段，2026年是驗證年，業界共識是要到2027年中至2028年才會真正放量。&lt;/p&gt;<br>&nbsp; &nbsp; &lt;/div&gt;</p><p>&nbsp; &nbsp; &lt;div class="compare-card"&gt;<br>&nbsp; &nbsp; &nbsp; &lt;h3&gt;同樣叫「玻璃」，為什麼本質不一樣？&lt;/h3&gt;<br>&nbsp; &nbsp; &nbsp; &lt;p class="sub"&gt;L3的T-glass玻纖布，跟這裡的玻璃基板，雖然都從矽砂熔融拉製而成，但變成成品時走的是兩條完全不同的路。&lt;/p&gt;<br>&nbsp; &nbsp; &nbsp; &lt;div class="compare-grid"&gt;<br>&nbsp; &nbsp; &nbsp; &nbsp; &lt;div class="compare-col old"&gt;<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;h4&gt;傳統做法・玻纖布（L3・T-glass）&lt;/h4&gt;<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;ul&gt;<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;li&gt;玻璃纖維紗「織成布」，泡進環氧樹脂裡固化&lt;/li&gt;<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;li&gt;是樹脂裡的補強材料，自己不是結構主體&lt;/li&gt;<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;li&gt;有經緯紋路：樹脂多的地方跟玻纖多的地方介電常數不同&lt;/li&gt;<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;li&gt;高速訊號通過時容易產生「玻纖效應」造成訊號偏斜&lt;/li&gt;<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;li&gt;沿用傳統機械／雷射鑽孔＋電鍍工藝&lt;/li&gt;<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/ul&gt;<br>&nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;<br>&nbsp; &nbsp; &nbsp; &nbsp; &lt;div class="compare-col new"&gt;<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;h4&gt;新做法・玻璃核心（GX・Glass Core）&lt;/h4&gt;<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;ul&gt;<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;li&gt;整片實心工程玻璃，直接當結構骨架，不混樹脂&lt;/li&gt;<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;li&gt;沒有編織紋路，材質均勻、超平整&lt;/li&gt;<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;li&gt;CTE與矽更接近，高溫下幾乎不翹曲&lt;/li&gt;<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;li&gt;介電損耗更低，高頻訊號更乾淨、可佈線更密&lt;/li&gt;<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;li&gt;需要全新的TGV雷射改質＋蝕刻工藝，設備幾乎重來一遍&lt;/li&gt;<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/ul&gt;<br>&nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;<br>&nbsp; &nbsp; &nbsp; &lt;/div&gt;<br>&nbsp; &nbsp; &nbsp; &lt;p class="compare-foot"&gt;簡單說：一個是「織進樹脂裡的補強材料」，一個是「材料本身就是結構」。這也是為什麼玻璃基板被視為核心層的世代交替，而不只是材料的小升級。&lt;/p&gt;<br>&nbsp; &nbsp; &lt;/div&gt;</p><p>&nbsp; &nbsp; &lt;div class="flowstrip" style="border-color:rgba(90,169,224,.35);"&gt;<br>&nbsp; &nbsp; &nbsp; &lt;b&gt;2025 Intel於Arizona驗證1微米級RDL線路&lt;/b&gt;&lt;span class="arrow"&gt;→&lt;/span&gt;&lt;b&gt;2026上半年 各廠送樣／試產線陸續建置&lt;/b&gt;&lt;span class="arrow"&gt;→&lt;/span&gt;&lt;b&gt;2026下半年 Intel衝刺首批客戶出貨、Absolics拚量產&lt;/b&gt;&lt;span class="arrow"&gt;→&lt;/span&gt;&lt;b&gt;2027–2028 三星與台廠陸續放量&lt;/b&gt;<br>&nbsp; &nbsp; &lt;/div&gt;</p><p>&nbsp; &nbsp; &lt;div class="invest-box"&gt;<br>&nbsp; &nbsp; &nbsp; &lt;span class="lbl"&gt;投資觀察：題材先行，量產未到&lt;/span&gt;<br>&nbsp; &nbsp; &nbsp; 玻璃基板現階段不是要「全面取代」ABF/BT，而是先在最高階的AI／HPC封裝小量試用。2026年台股的玻璃基板概念股，本質上比較接近「卡位股」而非「獲利股」——多數公司營收貢獻還很小，真正放量普遍預期落在2027年中之後。脆性、良率（業界估約75–85%）與成本（市場研究機構估計約為成熟ABF載板的2–3倍）是觀察量產能否如期到來的三個關鍵變數，建議留意季報中「玻璃基板」相關營收占比是否真的從0開始墊高，而不只是法說會的願景描述。<br>&nbsp; &nbsp; &lt;/div&gt;</p><p>&nbsp; &nbsp; &lt;div class="group-wrap" id="grid-glass"&gt;&lt;/div&gt;<br>&nbsp; &lt;/section&gt;</p><p>&nbsp; &lt;section class="tier" id="l4"&gt;<br>&nbsp; &nbsp; &lt;div class="tier-head"&gt;<br>&nbsp; &nbsp; &nbsp; &lt;div class="tier-tag"&gt;Layer 04&lt;/div&gt;<br>&nbsp; &nbsp; &nbsp; &lt;h2&gt;製程化學品與設備&lt;/h2&gt;<br>&nbsp; &nbsp; &nbsp; &lt;p&gt;不算材料支線，而是橫向支援整條產線的「製程輸入」：光阻、蝕刻、電鍍化學品，以及決定良率與交期的雷射鑽孔設備。&lt;/p&gt;<br>&nbsp; &nbsp; &lt;/div&gt;<br>&nbsp; &nbsp; &lt;div class="lane-grid" id="grid-l4" style="grid-template-columns:repeat(2,1fr); max-width:600px;"&gt;&lt;/div&gt;<br>&nbsp; &nbsp; &lt;div class="merge-banner"&gt;▼ 材料層（L1–L3）＋ 製程支援（L4）匯流進入 &lt;b&gt;L5 載板製造廠&lt;/b&gt;&lt;/div&gt;<br>&nbsp; &lt;/section&gt;</p><p>&nbsp; &lt;section class="tier" id="l5"&gt;<br>&nbsp; &nbsp; &lt;div class="tier-head"&gt;<br>&nbsp; &nbsp; &nbsp; &lt;div class="tier-tag"&gt;Layer 05 · 主角&lt;/div&gt;<br>&nbsp; &nbsp; &nbsp; &lt;h2&gt;載板製造廠&lt;/h2&gt;<br>&nbsp; &nbsp; &nbsp; &lt;p&gt;整張地圖的主角，依國家分組。這裡才是台股投資人最常討論的「載板股」本尊。&lt;/p&gt;<br>&nbsp; &nbsp; &lt;/div&gt;<br>&nbsp; &nbsp; &lt;div class="group-wrap" id="grid-l5"&gt;&lt;/div&gt;<br>&nbsp; &lt;/section&gt;</p><p>&nbsp; &lt;section class="tier" id="l6"&gt;<br>&nbsp; &nbsp; &lt;div class="tier-head"&gt;<br>&nbsp; &nbsp; &nbsp; &lt;div class="tier-tag"&gt;Layer 06&lt;/div&gt;<br>&nbsp; &nbsp; &nbsp; &lt;h2&gt;封裝測試廠（下游直接客戶）&lt;/h2&gt;<br>&nbsp; &nbsp; &nbsp; &lt;p&gt;載板做好之後，送進封測廠把晶片黏上去、打線或覆晶、測試，才算完成一顆IC。&lt;/p&gt;<br>&nbsp; &nbsp; &lt;/div&gt;<br>&nbsp; &nbsp; &lt;div class="group-wrap" id="grid-l6"&gt;&lt;/div&gt;<br>&nbsp; &lt;/section&gt;</p><p>&nbsp; &lt;section class="tier" id="l7"&gt;<br>&nbsp; &nbsp; &lt;div class="tier-head"&gt;<br>&nbsp; &nbsp; &nbsp; &lt;div class="tier-tag"&gt;Layer 07&lt;/div&gt;<br>&nbsp; &nbsp; &nbsp; &lt;h2&gt;終端應用與晶片品牌&lt;/h2&gt;<br>&nbsp; &nbsp; &nbsp; &lt;p&gt;最後露出水面的一層，也是市場情緒最敏感的一層。同一片載板，因為終端應用不同，會走向完全不同的規格與廠商。&lt;/p&gt;<br>&nbsp; &nbsp; &lt;/div&gt;<br>&nbsp; &nbsp; &lt;div class="lane-grid" id="grid-l7" style="grid-template-columns:repeat(3,1fr);"&gt;&lt;/div&gt;<br>&nbsp; &lt;/section&gt;</p><p>&nbsp; &lt;footer&gt;<br>&nbsp; &nbsp; &lt;div class="stamp"&gt;<br>&nbsp; &nbsp; &nbsp; &lt;div class="title"&gt;IC SUBSTRATE SUPPLY CHAIN SCHEMATIC&lt;/div&gt;<br>&nbsp; &nbsp; &nbsp; &lt;div class="row"&gt;&lt;span class="k"&gt;REV&lt;/span&gt;&lt;span class="v"&gt;v1.1 — 新增GX玻璃基板（Glass Core Substrate）研究；下一版規劃擴充完整AI伺服器供應鏈（CoWoS先進封裝／HBM／液冷散熱／電源管理）&lt;/span&gt;&lt;/div&gt;<br>&nbsp; &nbsp; &nbsp; &lt;div class="row"&gt;&lt;span class="k"&gt;DATE&lt;/span&gt;&lt;span class="v"&gt;2026.06.20&lt;/span&gt;&lt;/div&gt;<br>&nbsp; &nbsp; &nbsp; &lt;div class="row"&gt;&lt;span class="k"&gt;SOURCE&lt;/span&gt;&lt;span class="v"&gt;彙整自產業公開資訊與公司公告（味の素、日東紡、三菱瓦斯化學、Resonac、Intel、Corning、SKC／Absolics、台日韓上市公司財報、商業周刊／經濟日報／TrendForce等媒體報導），部分數字引用自使用者提供的整理稿&lt;/span&gt;&lt;/div&gt;<br>&nbsp; &nbsp; &nbsp; &lt;div class="row"&gt;&lt;span class="k"&gt;NOTE&lt;/span&gt;&lt;span class="v"&gt;股票代號、市占率、產能數字僅供研究參考，請以公司最新公告與即時報價為準；新光電気工業已於2025年6月私有化下市，現非公開發行股票；GX玻璃基板區塊多為2026年試產階段的前瞻性資訊，量產時程與良率數字屬產業預估，實際進度可能調整&lt;/span&gt;&lt;/div&gt;<br>&nbsp; &nbsp; &lt;/div&gt;<br>&nbsp; &nbsp; &lt;p class="disclaimer"&gt;本頁僅為產業結構整理與公開資訊彙整，不構成投資建議、亦非任何證券之買賣推薦。投資前請自行查證並評估風險，或諮詢專業投資顧問。&lt;/p&gt;<br>&nbsp; &lt;/footer&gt;<br>&lt;/main&gt;</p><p>&lt;div class="modal-overlay" id="modalOverlay" hidden&gt;<br>&nbsp; &lt;div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"&gt;<br>&nbsp; &nbsp; &lt;button class="close" id="modalClose" aria-label="關閉"&gt;✕&lt;/button&gt;<br>&nbsp; &nbsp; &lt;div id="modalBody"&gt;&lt;/div&gt;<br>&nbsp; &lt;/div&gt;<br>&lt;/div&gt;</p><p>&lt;script&gt;<br>const TIER_LABEL = {1:'L1 礦業／石化',2:'L2 化工中間體',3:'L3 結構材料',4:'L4 製程支援',5:'L5 載板製造',6:'L6 封裝測試',7:'L7 終端應用','G':'GX 玻璃基板'};<br>const LANE_LABEL = {cu:'銅 Copper',gl:'玻纖 Glass',abf:'ABF樹脂',bt:'BT樹脂',proc:'製程支援',maker:'載板廠',osat:'封測廠',end:'終端應用',gmat:'玻璃材料',gequip:'TGV設備',gplayer:'載板整合',gchem:'製程化學'};<br>const LANE_VAR = {cu:'var(--lane-cu)',gl:'var(--lane-gl)',abf:'var(--lane-abf)',bt:'var(--lane-bt)',proc:'var(--lane-proc)',maker:'var(--lane-maker)',osat:'var(--lane-osat)',end:'var(--lane-end)',gmat:'var(--glass)',gequip:'var(--glass)',gplayer:'var(--glass)',gchem:'var(--glass)'};</p><p>const DATA = [<br>// ---------------- L1 ----------------<br>{id:'t1_cu', tier:1, lane:'cu', zh:'銅礦', en:'Copper Ore', role:'電解銅箔最源頭的原料，產地集中於少數國家。',<br>&nbsp;info:['全球銅礦高度集中於智利、秘魯、剛果（金）等地，地緣政治敏感度高。','經火法冶煉、電解精煉成為高純度精銅（純度≥99.99%），才能進一步加工成電解銅箔。'],<br>&nbsp;companies:[{flag:'🇺🇸',name:'Freeport-McMoRan',ticker:'NYSE:FCX',note:'全球大型銅礦商，銅價／供給指標股之一，非載板鏈專屬。'},{flag:'🇺🇸',name:'Southern Copper',ticker:'NYSE:SCCO',note:'美洲大型銅礦商。'},{flag:'🇨🇳',name:'江西銅業',ticker:'SH:600362',note:'中國大型銅冶煉集團。'}],<br>&nbsp;down:'銅礦 → 精煉銅／硫酸銅溶液 → 超薄電解銅箔'},</p><p>{id:'t1_gl', tier:1, lane:'gl', zh:'矽砂・礬土・硼砂等礦物', en:'Silica / Alumina / Borax', role:'玻璃纖維布的礦物源頭。',<br>&nbsp;info:['玻纖布的礦物原料以二氧化矽（SiO₂，約65%）為主體，搭配氧化鋁（約14%）、氧化硼（約6%）調整特性。','高溫（1500°C以上）熔融後，由白金合金噴嘴拉絲成直徑僅數微米的玻璃纖維絲。'],<br>&nbsp;companies:[{flag:'🇨🇳',name:'石英股份',ticker:'SZ:603688',note:'高純石英砂供應商，半導體與光纖玻璃上游。'}],<br>&nbsp;down:'礦物原料 → 高溫玻璃熔液 → T-glass電子級玻纖布'},</p><p>{id:'t1_abf', tier:1, lane:'abf', zh:'石油化學原料（苯／丙烯系）', en:'Petrochemical Feedstock — Benzene / Propylene', role:'ABF環氧樹脂支線的起點。',<br>&nbsp;info:['丙烯經氯化反應生成環氧氯丙烷；苯酚與丙酮縮合生成雙酚A（BPA）。','兩者進一步反應生成環氧樹脂，是ABF增層膜不含玻纖的核心絕緣樹脂來源。'],<br>&nbsp;companies:[],<br>&nbsp;down:'石油原料 → 環氧樹脂前驅體（BPA＋環氧氯丙烷） → ABF增層膜'},</p><p>{id:'t1_bt', tier:1, lane:'bt', zh:'石油化學原料（苯系／胺類）', en:'Petrochemical Feedstock — Aniline / Anhydride', role:'BT樹脂支線的起點，與ABF同源、路徑不同。',<br>&nbsp;info:['苯經苯胺化、再與馬來酸酐反應生成雙馬來醯亞胺（BMI）單體。','另一路徑由雙酚A與氰化鹵反應生成氰酸酯（CE），BMI與CE複合即為BT樹脂的骨架。'],<br>&nbsp;companies:[],<br>&nbsp;down:'石油原料 → BT樹脂前驅體（BMI＋氰酸酯CE） → BT樹脂基材',<br>&nbsp;invest:'與ABF環氧樹脂幾乎源自同一套石化原料，只是後段合成路徑分岔——這也是為什麼BT與ABF載板的成本走勢常常連動。'},</p><p>// ---------------- L2 ----------------<br>{id:'t2_cu', tier:2, lane:'cu', zh:'精煉銅／硫酸銅溶液', en:'Refined Copper / CuSO₄ Solution', role:'電解銅箔產線的核心電解液。',<br>&nbsp;info:['高純度精銅溶於硫酸形成硫酸銅電解液，是電解銅箔生產線的核心原料。','電解液中添加微量明膠、聚乙二醇（PEG）等添加劑，控制銅箔結晶與厚度均勻性。'],<br>&nbsp;companies:[]},</p><p>{id:'t2_gl', tier:2, lane:'gl', zh:'高溫玻璃熔液（約1500°C）', en:'Molten Glass (~1500°C)', role:'整段玻纖製程設備門檻最高的一步。',<br>&nbsp;info:['礦物原料於池爐中高溫熔融成均質玻璃液。','再經白金—銠合金噴嘴（bushing）拉製成直徑僅數微米的玻璃絲，後續再上膠、集束、織布。'],<br>&nbsp;companies:[],<br>&nbsp;invest:'一條高端電子布產線設備投資就超過5億人民幣，高端窯爐甚至可能超過15億人民幣，且擴產週期長達2年以上——這是T-glass供給彈性極低的根本原因。'},</p><p>{id:'t2_abf', tier:2, lane:'abf', zh:'環氧樹脂前驅體（BPA＋環氧氯丙烷）', en:'Epoxy Resin Precursor', role:'ABF膜的樹脂半成品。',<br>&nbsp;info:['雙酚A二縮水甘油醚與雙酚A反應，生成不同分子量的環氧樹脂。','室溫下為黏稠清澈液體（液態環氧樹脂）或無色固體（固態環氧樹脂），依分子量決定後續加工方式。'],<br>&nbsp;companies:[]},</p><p>{id:'t2_bt', tier:2, lane:'bt', zh:'BT樹脂前驅體（BMI＋氰酸酯CE）', en:'BMI + Cyanate Ester Precursor', role:'BT樹脂的兩種骨架原料。',<br>&nbsp;info:['馬來酸酐與二元胺以2:1比例反應生成雙馬來醯亞胺酸，環化後成為BMI單體。','氰酸酯可與環氧樹脂、BMI等熱固性材料混合，形成相容性佳的複合樹脂體系。'],<br>&nbsp;companies:[]},</p><p>// ---------------- L3 ----------------<br>{id:'t3_cu', tier:3, lane:'cu', zh:'超薄電解銅箔', en:'Ultra-thin Electrolytic Copper Foil', role:'線路精細度的直接限制因素。',<br>&nbsp;info:['銅箔厚度直接影響線路精細程度：越薄、側蝕越小，越利於精細線路作業。','下一代技術方向是發展小於3μm的極薄銅箔，搭配更精密的SAP製程。'],<br>&nbsp;companies:[<br>&nbsp; &nbsp;{flag:'🇯🇵',name:'三井金屬鉱業 Mitsui Mining &amp; Smelting',ticker:'TSE:5706',note:'極薄銅箔技術長期領先，已量產1.5–5μm極薄箔。'},<br>&nbsp; &nbsp;{flag:'🇯🇵',name:'古河電気工業 Furukawa Electric',ticker:'TSE:5801',note:'銅箔與電子材料大廠。'}<br>&nbsp;]},</p><p>{id:'t3_gl', tier:3, lane:'gl', zh:'T-glass 電子級玻璃纖維布', en:'Low-CTE Electronic Glass Fabric', role:'2025–2026年AI載板供應鏈最深的單點瓶頸之一。',<br>&nbsp;badge:'供給吃緊',<br>&nbsp;info:['T-glass（低熱膨脹係數玻纖布）能有效抑制先進封裝時材料形變、翹曲。','與NE-glass並列日廠的兩種「黃金配方」玻璃材料，介電常數遠優於一般玻纖布。'],<br>&nbsp;companies:[<br>&nbsp; &nbsp;{flag:'🇯🇵',name:'日東紡 Nittobo',ticker:'TSE:3110',note:'T-glass主要供應商，市占約80%；NE-glass技術研發逾30年，被市場點名為AI資料中心「特需」概念股。'},<br>&nbsp; &nbsp;{flag:'🇺🇸',name:'PPG Industries',ticker:'NYSE:PPG',note:'特用玻纖布供應商之一。'}<br>&nbsp;],<br>&nbsp;invest:'高端電子布產能擴充週期長達2年以上，短期供給彈性極低；2025–2026年AI伺服器拉貨已造成T-glass明顯缺貨，是觀察載板廠成本與交期的關鍵指標。'},</p><p>{id:'t3_abf', tier:3, lane:'abf', zh:'ABF 增層膜', en:'Ajinomoto Build-up Film', role:'FC-BGA高階載板不可替代的絕緣介電層。',<br>&nbsp;badge:'近乎獨占',<br>&nbsp;info:['以環氧樹脂混合玻璃微粉壓合而成的片狀半固化材料，不含玻纖，可實現SAP半加成製程，適合高階細線路。','主要應用於CPU、GPU、ASIC等伺服器晶片，以及部分車用晶片的FC-BGA封裝。'],<br>&nbsp;companies:[{flag:'🇯🇵',name:'味の素 Ajinomoto',ticker:'TSE:2802',note:'全球ABF膜市占約95%，近乎獨家供應。'}],<br>&nbsp;invest:'味の素已於2026年Q3宣布ABF膜漲價30%，並規劃岐阜第三座新廠、目標2032年量產——反映其在AI伺服器ABF載板供應鏈中近乎不可取代的議價能力，是整條鏈成本最關鍵的觀察點。'},</p><p>{id:'t3_bt', tier:3, lane:'bt', zh:'BT 樹脂基材', en:'Bismaleimide-Triazine Resin', role:'尺寸穩定、可靠性高的傳統載板材料。',<br>&nbsp;info:['不容易熱漲冷縮、尺寸穩定、材質硬，高玻璃化溫度與低介電損耗使其適合可靠性要求高的封裝。','主要用於記憶體、MEMS、RF、LED等晶片的WB/CSP載板。'],<br>&nbsp;companies:[<br>&nbsp; &nbsp;{flag:'🇯🇵',name:'三菱瓦斯化學 Mitsubishi Gas Chemical',ticker:'TSE:4182',note:'BT樹脂原始研發廠商。'},<br>&nbsp; &nbsp;{flag:'🇯🇵',name:'Resonac Holdings 力森諾科',ticker:'TSE:4004',note:'原日立化成與昭和電工合併而成，BT/CCL材料主要供應商之一。'}<br>&nbsp;],<br>&nbsp;invest:'MGC與Resonac的BT/CCL材料已宣布自2026年4月1日起調漲約30%，是中游載板廠（尤其BT產品線）成本端的重要觀察變數。'},</p><p>{id:'t3_ccl', tier:3, lane:'merge', zh:'銅箔基板 CCL', en:'Copper Clad Laminate', role:'銅箔＋玻纖布＋環氧樹脂熱壓合而成的共通基材。',<br>&nbsp;info:['由銅箔與非導電複合材料（玻纖布、環氧樹脂）熱壓而成，是BT載板與一般PCB共通的核心基材。','台廠在中低階CCL具備全球競爭力，是「台光電／聯茂／台燿」這類CCL三雄的主戰場。'],<br>&nbsp;companies:[<br>&nbsp; &nbsp;{flag:'🇹🇼',name:'台光電 EMC',ticker:'TWSE:2383'},<br>&nbsp; &nbsp;{flag:'🇹🇼',name:'聯茂 ITEQ',ticker:'TWSE:6213'},<br>&nbsp; &nbsp;{flag:'🇹🇼',name:'台燿 TUC',ticker:'TWSE:6274'}<br>&nbsp;],<br>&nbsp;up:'匯流自：超薄電解銅箔 ＋ T-glass玻纖布 ＋ 環氧樹脂'},</p><p>// ---------------- Glass Core Substrate (emerging, parallel track) ----------------<br>{id:'tg_material', tier:'G', lane:'gmat', zh:'玻璃基板材料本身', en:'Substrate-grade Glass Composition', role:'決定CTE匹配、介電損耗與良率上限的最底層。',<br>&nbsp;info:[<br>&nbsp; '主要供應商集中在少數歐美日廠商手上，配方差異會直接影響後續TGV鑽孔與RDL增層的良率。',<br>&nbsp; 'Corning（康寧）已於2023年發表玻璃核心基板平台，是目前技術形象最領先的材料商之一。',<br>&nbsp; '三星集團已宣布與住友化學成立合資公司、自製玻璃核心材料，目的是降低對單一供應商的依賴。'],<br>&nbsp;companies:[<br>&nbsp; {flag:'🇺🇸',name:'Corning 康寧',ticker:'NYSE:GLW',note:'2023年發表玻璃核心基板平台，商用送樣持續推進中。'},<br>&nbsp; {flag:'🇯🇵',name:'AGC（旭硝子）',ticker:'TSE:5201',note:'特殊玻璃配方涵蓋硼矽酸鹽、鋁矽酸鹽等多種組成，產能橫跨日本、比利時、台灣。'},<br>&nbsp; {flag:'🇩🇪',name:'Schott 蕭特',ticker:'未上市（蔡司基金會持有）',note:'2024年完成收購QSIL高純度石英玻璃業務，強化先進封裝材料布局。'},<br>&nbsp; {flag:'🇯🇵',name:'日本電気硝子 NEG',ticker:'TSE:5214',note:'2024年推出可用CO₂雷射鑽孔的GC Core玻璃陶瓷基板。'},<br>&nbsp; {flag:'🇯🇵',name:'住友化學 Sumitomo Chemical',ticker:'TSE:4005',note:'與三星合資開發玻璃核心專用材料。'}<br>&nbsp;]},</p><p>{id:'tg_equip', tier:'G', lane:'gequip', zh:'TGV玻璃穿孔與精密加工設備', en:'Through-Glass-Via (TGV) Equipment', role:'玻璃易碎，鑽孔、薄化、切割的良率幾乎決定整條鏈能不能放量。',<br>&nbsp;info:[<br>&nbsp; 'TGV（玻璃穿孔）是玻璃基板最關鍵的製程步驟，需要雷射精準鑽出大量微孔並完成金屬化，與面板廠既有的雷射切割、剝離工藝有部分共通性。',<br>&nbsp; '台廠多半從面板設備或既有雷射鑽孔業務切入，目前處於送樣驗證、產能尚小的階段。'],<br>&nbsp;companies:[<br>&nbsp; {flag:'🇩🇪',name:'LPKF Laser',ticker:'XETRA:LPK',note:'與Fraunhofer研究機構等共組Glass Panel Technology Group，推動TGV設備標準化。'},<br>&nbsp; {flag:'🇹🇼',name:'雷科',ticker:'TWSE:6207',note:'主攻TGV雷射穿孔設備，同步切入CoWoS檢測與TSV鑽孔；市場預估2026年設備營收成長逾35%。'},<br>&nbsp; {flag:'🇹🇼',name:'東捷',ticker:'TWSE:8064',note:'以「雷射＋真空＋光學」技術切入面板級封裝（FOPLP）與TGV解決方案。'},<br>&nbsp; {flag:'🇹🇼',name:'正達',ticker:'TWSE:3149',note:'具奈米級玻璃加工能力，因客戶「去中化」需求獲康寧主動接觸合作。'},<br>&nbsp; {flag:'🇹🇼',name:'宸鴻 TPK-KY',ticker:'TWSE:3673',note:'觸控玻璃加工背景跨入TGV，台灣試產線規劃2026年中建置完成。'},<br>&nbsp; {flag:'🇹🇼',name:'大量科技',ticker:'TWSE:3167',note:'PCB高階鑽孔／背鑽機起家，切入TGV鑽孔與高精度對位設備，同步發展半導體量測業務。'},<br>&nbsp; {flag:'🇹🇼',name:'志聖',ticker:'TWSE:2467',note:'乾膜貼合、Curing烘烤、Bonder等設備，對應玻璃基板試產期的壓合烘烤與暫時鍵合需求，常與友威科(3580)並列鍍膜／熱處理設備族群。'}<br>&nbsp;]},</p><p>{id:'tg_titansus', tier:'G', lane:'gequip', zh:'鈦昇 — TGV設備純度最高的指標股', en:'Titansus — TGV Laser Equipment', role:'雷射鑽孔、解膠、電漿清洗一站包辦，主導「E-Core Sys.玻璃基板大聯盟」。',<br>&nbsp;badge:'設備純度最高',<br>&nbsp;companies:[{flag:'🇹🇼',name:'鈦昇',ticker:'TWSE:8027',note:'營收結構以雷射設備為主，是少數同時具備TGV鑽孔、雷射解膠、電漿清洗一站式方案的台廠。'}],<br>&nbsp;info:[<br>&nbsp; '主導「E-Core Sys. 玻璃基板大聯盟」，整合上下游廠商共同推進TGV技術標準化。',<br>&nbsp; '據報導已完成美系客戶驗證並進入交機階段，訂單能見度看到2027年。',<br>&nbsp; '2026年股價波動劇烈，從年初百元附近一度衝上近300元，5月曾兩度被交易所列為注意／處置股，反映玻璃基板題材資金博弈激烈。'],<br>&nbsp;invest:'是目前市場公認「題材最純」的玻璃基板設備股，但也正因為純度高，股價對任何驗證進度的風吹草動都特別敏感——上漲快、回檔也可能快，籌碼面波動不小，不是只看基本面就夠，留意是否再被列為注意／處置股。'},</p><p>{id:'tg_intel', tier:'G', lane:'gplayer', zh:'Intel — 玻璃核心基板技術領先者', en:'Intel Glass Core Substrate (GCS)', role:'目前公開進度最快、最常被當作產業指標的廠商。',<br>&nbsp;badge:'技術領先',<br>&nbsp;companies:[{flag:'🇺🇸',name:'Intel',ticker:'NASDAQ:INTC',note:'與L7終端應用的Intel為同一家公司，此處聚焦其玻璃基板技術進度。'}],<br>&nbsp;info:[<br>&nbsp; '已在Arizona Chandler廠驗證1微米等級的RDL線路，是業界最細的玻璃基板線路紀錄之一。',<br>&nbsp; '2026年初於NEPCON JAPAN展出整合EMIB（嵌入式多晶片互連橋接）的「厚芯」玻璃基板，採10-2-10結構，封裝尺寸可達78×77mm、矽晶面積逾1,700mm²，用來突破單一光罩尺寸限制。',<br>&nbsp; '2025年9月Intel曾公開駁斥「可能因營運壓力退出玻璃基板業務」的傳言，重申將按原計畫推進商用化。'],<br>&nbsp;invest:'據報導Intel也在評估把600項以上的玻璃基板專利開放授權，若成真可能加速包含台廠在內的整個產業的技術追趕速度。'},</p><p>{id:'tg_skc', tier:'G', lane:'gplayer', zh:'SKC／Absolics — 全球首座量產級玻璃基板廠', en:'SKC / Absolics', role:'速度優先策略：先蓋廠卡位，技術標準由先量產者制定。',<br>&nbsp;badge:'量產進度最快',<br>&nbsp;companies:[{flag:'🇰🇷',name:'SKC／Absolics',ticker:'KRX:011790（SKC母公司）',note:'Absolics為SKC於2021年分拆成立的玻璃基板專責子公司，未單獨上市。'}],<br>&nbsp;info:[<br>&nbsp; 'Absolics在美國喬治亞州的工廠是全球第一座專門生產玻璃基板的量產設施，曾獲美國CHIPS法案最高7,500萬美元的補助。',<br>&nbsp; '據報導已交付雛形玻璃基板給「全球前三大GPU設計商」（市場普遍解讀為AMD）測試，並規劃月產能由4,000片擴大到8,000片。',<br>&nbsp; '母公司SKC據報導已將現金增資金額約六成挹注Absolics，加速產品開發與產能擴張。'],<br>&nbsp;invest:'設廠在美國也讓Absolics較能繞開部分地緣政治風險，並貼近超大型雲端業者與CHIPS法案的供應鏈在地化政策方向。'},</p><p>{id:'tg_semco', tier:'G', lane:'gplayer', zh:'三星電機（玻璃基板進度）', en:'Samsung Electro-Mechanics — Glass Substrate', role:'已從先進研發單位轉為事業化執行團隊，指標意義濃厚。',<br>&nbsp;companies:[{flag:'🇰🇷',name:'Samsung Electro-Mechanics',ticker:'KRX:009150',note:'與L5傳統載板業務為同一家公司，此處聚焦其玻璃基板專案進度。'}],<br>&nbsp;info:[<br>&nbsp; '據報導玻璃基板專案已從先進研發單位轉移至事業部門，訊號是技術逐漸成熟、準備進入商業化執行階段。',<br>&nbsp; '目標是2027年起玻璃基板進入全面放量期，目前正與包含國際半導體大廠在內的客戶共同開發樣品。',<br>&nbsp; '三星集團整體展現較強的供應鏈整合能力，三星電子本身的應用導入規劃約落在2028年前後。']},</p><p>{id:'tg_lginnotek', tier:'G', lane:'gplayer', zh:'LG Innotek（玻璃基板進度）', en:'LG Innotek — Glass Substrate', role:'進場較晚，靠與康寧合作、加上既有高密度互連經驗追趕。',<br>&nbsp;companies:[{flag:'🇰🇷',name:'LG Innotek',ticker:'KRX:011070',note:'與L5傳統載板業務為同一家公司，此處聚焦其玻璃基板專案進度。'}],<br>&nbsp;info:[<br>&nbsp; '與玻璃材料龍頭康寧簽署共同研發協議，補足自身材料端經驗的不足。',<br>&nbsp; '既有全球最大相機模組供應商、車用Rigid-Flex電路板的高密度互連經驗，可望轉用到玻璃基板的精密線路上。',<br>&nbsp; '在龜尾（Gumi）建置試產線，可處理510mm×510mm的大尺寸玻璃面板（明顯大於常見300mm晶圓），目標是用更大面板攤低單位成本。']},</p><p>{id:'tg_unimicron_glass', tier:'G', lane:'gplayer', zh:'欣興電子（玻璃基板進度）', en:'Unimicron — Glass Substrate', role:'台灣載板龍頭，同時也是Intel的研發合作夥伴。',<br>&nbsp;badge:'台廠指標',<br>&nbsp;companies:[{flag:'🇹🇼',name:'欣興電子',ticker:'TWSE:3037',note:'與L5傳統ABF載板業務為同一家公司，此處聚焦其玻璃基板專案進度。'}],<br>&nbsp;info:[<br>&nbsp; '欣興董事長曾子章曾公開表示，最快可在2026年3月進行樣品驗證、接續產線裝機，較樂觀情境下量產時點落在2027至2028年。',<br>&nbsp; '身為Intel的研發合作夥伴，欣興可望沿用既有的高階載板客戶關係，是傳統載板廠中被認為受惠面最廣的一家。'],<br>&nbsp;invest:'短期仍屬「先卡位、後放量」性質，2026年的股價反應通常領先實際營收貢獻，留意法說會是否揭露具體送樣與裝機進度。'},</p><p>{id:'tg_tw_others', tier:'G', lane:'gplayer', zh:'南電／景碩／臻鼎-KY（玻璃基板布局）', en:'Nan Ya PCB / Kinsus / Zhen Ding', role:'載板三雄的另外兩家，加上PCB龍頭臻鼎-KY同步卡位。',<br>&nbsp;companies:[<br>&nbsp; {flag:'🇹🇼',name:'南亞電路板',ticker:'TWSE:8046'},<br>&nbsp; {flag:'🇹🇼',name:'景碩科技',ticker:'TWSE:3189'},<br>&nbsp; {flag:'🇹🇼',name:'臻鼎-KY',ticker:'TWSE:4958'}<br>&nbsp;],<br>&nbsp;info:[<br>&nbsp; '南電、景碩同步投入玻璃核心基板的研發與送樣，放量時程與欣興相近，普遍預期落在2027年中以後。',<br>&nbsp; '臻鼎-KY以PCB起家，近年積極切入高階載板與AI PCB，管理層表示玻璃基板「可能對某些高階產品有好處」，態度相對審慎。']},</p><p>{id:'tg_panel_vets', tier:'G', lane:'gplayer', zh:'面板背景切入者：群創／友達', en:'Innolux / AUO — Panel-heritage Entrants', role:'用幾十年的LCD玻璃處理經驗，跨界搶玻璃基板的入場券。',<br>&nbsp;companies:[<br>&nbsp; {flag:'🇹🇼',name:'群創 Innolux',ticker:'TWSE:3481'},<br>&nbsp; {flag:'🇹🇼',name:'友達 AUO',ticker:'TWSE:2409'}<br>&nbsp;],<br>&nbsp;info:[<br>&nbsp; '兩家公司在面板（LCD/OLED）產業累積數十年的大尺寸玻璃切割、薄化、處理經驗，被視為跨入玻璃基板領域的潛在黑馬。',<br>&nbsp; '相較傳統載板廠，面板廠的優勢在大尺寸玻璃面板的良率與成本控制，劣勢則是精密電路增層（RDL）經驗相對較淺。']},</p><p>{id:'tg_tsmc', tier:'G', lane:'gplayer', zh:'台積電 — FOPLP／CoPoS（面板級玻璃封裝）', en:'TSMC — Fan-Out Panel-Level Packaging on Glass', role:'先進封裝龍頭從晶圓級走向面板級的關鍵一步。',<br>&nbsp;badge:'需求拉動者',<br>&nbsp;companies:[{flag:'🇹🇼',name:'台積電',ticker:'TWSE:2330（ADR NYSE:TSM）'}],<br>&nbsp;info:[<br>&nbsp; '台積電原本主導的CoWoS是「晶圓級」先進封裝，玻璃基板將其再推進到「面板級」——即FOPLP（扇出型面板級封裝）／CoPoS（Chip-on-Panel-on-Substrate）。',<br>&nbsp; '據報導試產線已於近期啟動，目標是用更大的面板尺寸取代圓形晶圓，攤低單位成本、容納更多顆AI晶片與HBM。'],<br>&nbsp;invest:'台積電的動向通常是台灣設備與材料供應鏈最重要的需求訊號之一，若CoPoS進度超預期，雷科、東捷、正達等設備／加工廠可能是最先反應的一群。'},</p><p>{id:'tg_chem', tier:'G', lane:'gchem', zh:'化學製程與濕製程封測代工', en:'Wet-Process Chemicals &amp; OSAT', role:'TGV鑽孔後還需要金屬化、蝕刻、清洗，化學品與濕製程代工同樣不可少。',<br>&nbsp;info:['TGV鑽孔之後，玻璃基板仍需要高附著力緩衝層、特殊蝕刻化學藥劑與電鍍金屬化等濕製程，技術門檻與既有ABF/BT載板製程有部分共通、但也有針對玻璃材質的客製化需求。'],<br>&nbsp;companies:[<br>&nbsp; {flag:'🇹🇼',name:'弘塑',ticker:'TWSE:3131',note:'濕製程設備與化學品供應商，切入玻璃基板濕製程。'},<br>&nbsp; {flag:'🇹🇼',name:'辛耘',ticker:'TWSE:3583',note:'半導體濕製程設備代理與整合商，同步布局玻璃基板相關製程。'},<br>&nbsp; {flag:'🇹🇼',name:'日月光投控',ticker:'TWSE:3711',note:'已於L6封裝測試廠介紹過；在玻璃基板這條新賽道上，同樣是封裝與測試端的潛在受惠者。'}<br>&nbsp;]},</p><p>// ---------------- L4 ----------------<br>{id:'t4_chem', tier:4, lane:'proc', zh:'製程化學品（光阻／蝕刻／電鍍）', en:'Process Chemicals', role:'決定線路良率的耗材層。',<br>&nbsp;info:['ABF載板生產過程中使用乾膜、濕膜、光阻、蝕刻劑、顯影劑等化學材料。','高階ABF載板中，功能性濕電子化學品成本占比約10–12%，其中約70–80%為沉銅與電鍍用化學品，其餘為顯影、閃蝕等電子化學品。'],<br>&nbsp;companies:[]},</p><p>{id:'t4_laser', tier:4, lane:'proc', zh:'雷射鑽孔設備', en:'Laser Drilling Equipment', role:'層間互連（via）的關鍵製程設備。',<br>&nbsp;info:['微盲孔（via）雷射鑽孔是載板層間互連的關鍵製程，直接影響良率與交期。','AI時代載板層數從6層擴增到20層以上，使鑽孔量暴增、設備交期明顯拉長。'],<br>&nbsp;companies:[<br>&nbsp; &nbsp;{flag:'🇯🇵',name:'三菱電機 Mitsubishi Electric',ticker:'TSE:6503',note:'ABF/BT載板雷射鑽孔設備主導廠商之一。'},<br>&nbsp; &nbsp;{flag:'🇺🇸',name:'ESI（MKS Instruments）',ticker:'NASDAQ:MKSI',note:'ESI雷射鑽孔設備已併入MKS Instruments。'},<br>&nbsp; &nbsp;{flag:'🇨🇳',name:'大族雷射 Han\'s Laser',ticker:'SZSE:002008',note:'中系雷射設備廠，積極切入載板鑽孔市場。'},<br>&nbsp; &nbsp;{flag:'🇩🇪',name:'LPKF Laser',ticker:'XETRA:LPK',note:'歐系雷射加工設備廠。'}<br>&nbsp;]},</p><p>// ---------------- L5 (substrate makers) ----------------<br>{id:'t5_unimicron', tier:5, lane:'maker', zh:'欣興電子 Unimicron', en:'Unimicron Technology', role:'橫跨PCB/HDI/FPC/載板的綜合平台股，全球載板市占第一。',<br>&nbsp;badge:'市占第一',<br>&nbsp;companies:[{flag:'🇹🇼',name:'欣興電子',ticker:'TWSE:3037'}],<br>&nbsp;info:[<br>&nbsp; '不只是ABF載板廠，而是橫跨PCB、HDI、FPC、Rigid-Flex與載板的綜合型平台股。',<br>&nbsp; '16層以上高階ABF產品營收占比達60%，技術上可做到32層，居台廠之冠。',<br>&nbsp; '為Amazon、Microsoft、Google、Meta四大CSP（雲端服務供應商）的載板主要供應商，也是NVIDIA Blackwell GPU平台第2供應商。'],<br>&nbsp;invest:'全球載板市占約16.0%，是目前全球唯一單一廠商市占破15%的領導廠商。'},</p><p>{id:'t5_nanya', tier:5, lane:'maker', zh:'南亞電路板 Nan Ya PCB', en:'Nan Ya PCB', role:'載板本業最純粹，市場常視為ABF載板代表股。',<br>&nbsp;companies:[{flag:'🇹🇼',name:'南亞電路板',ticker:'TWSE:8046'}],<br>&nbsp;info:[<br>&nbsp; 'ABF月產能約2,800萬顆，產品組合以網通載板為主（占比約65–70%），其餘主要是AMD CPU、GPU載板。',<br>&nbsp; '相較欣興的多角化，南電業務結構更集中在載板本業，股價對ABF景氣的敏感度也相對較高。'],<br>&nbsp;invest:'全球載板市占約8.7%，與網通／AI伺服器需求連動性高。'},</p><p>{id:'t5_kinsus', tier:5, lane:'maker', zh:'景碩科技 Kinsus', en:'Kinsus Interconnect Technology', role:'ABF與BT載板皆有布局的中型廠。',<br>&nbsp;companies:[{flag:'🇹🇼',name:'景碩科技',ticker:'TWSE:3189'}],<br>&nbsp;info:[<br>&nbsp; '技術層次上，欣興可做到32層、景碩14層、南電8至16層，三者定位明顯分層。',<br>&nbsp; '受T-glass、銅箔、鑽針等原材料短缺拖累，潛在營收影響估約10–15%，是觀察原料瓶頸傳導效應的指標股之一。']},</p><p>{id:'t5_ibiden', tier:5, lane:'maker', zh:'Ibiden イビデン', en:'Ibiden Co.', role:'日廠載板代表，FC-BGA高階載板要角。',<br>&nbsp;companies:[{flag:'🇯🇵',name:'Ibiden',ticker:'TSE:4062'}],<br>&nbsp;info:['深耕FC-BGA高階載板與陶瓷基板雙領域，是NVIDIA、Intel等高階CPU/GPU載板的重要供應商。'],<br>&nbsp;invest:'全球載板市占約9.3%。'},</p><p>{id:'t5_shinko', tier:5, lane:'maker', zh:'新光電気工業 Shinko Electric', en:'Shinko Electric Industries', role:'半導體封裝整合廠，2025年已私有化下市。',<br>&nbsp;badge:'已下市',&nbsp;<br>&nbsp;companies:[{flag:'🇯🇵',name:'新光電気工業',ticker:'原TSE:6967（已下市）'}],<br>&nbsp;info:[<br>&nbsp; '業務涵蓋BGA／導線架基板、電子材料（絕緣膜、導電膏）與封裝代工三大區塊，是日本半導體後段製程的整合型廠商。',<br>&nbsp; '2025年6月經要約收購（Tender Offer）後，股份已從東證Prime市場下市並私有化，目前非公開發行股票，投資人無法在公開市場買賣。'],<br>&nbsp;invest:'這是查資料時很容易踩的坑——很多舊文章仍把6967列為「可投資標的」，但其實已經買不到了，僅能作為產業地位參考。'},</p><p>{id:'t5_semco', tier:5, lane:'maker', zh:'三星電機 Samsung Electro-Mechanics', en:'SEMCO', role:'全球載板市占第二，三星集團內部核心供應商。',<br>&nbsp;companies:[{flag:'🇰🇷',name:'Samsung Electro-Mechanics',ticker:'KRX:009150'}],<br>&nbsp;info:['全球載板市占約9.9%，居全球第二。','除供應三星集團內部半導體與被動元件外，也切入AI伺服器FC-BGA領域。']},</p><p>{id:'t5_lginnotek', tier:5, lane:'maker', zh:'LG伊諾特 LG Innotek', en:'LG Innotek', role:'LG集團零組件廠，載板為其中一塊版圖。',<br>&nbsp;companies:[{flag:'🇰🇷',name:'LG Innotek',ticker:'KRX:011070'}],<br>&nbsp;info:['業務以基板互連、相機模組材料等為主，近年同步布局基板技術升級，載板占其營收比重相對欣興、南電低。']},</p><p>{id:'t5_atands', tier:5, lane:'maker', zh:'AT&amp;S', en:'AT&amp;S Austria Technologie &amp; Systemtechnik', role:'歐洲唯一具規模的高階載板廠。',<br>&nbsp;companies:[{flag:'🇦🇹',name:'AT&amp;S',ticker:'Vienna:ATS'}],<br>&nbsp;info:['全球載板市占約9.1%。','積極於馬來西亞Kulim擴建AI伺服器用ABF載板產能，並同步上修2025/26會計年度展望，是觀察「非亞洲傳統三強」載板供給的重要指標。']},</p><p>// ---------------- L6 (OSAT) ----------------<br>{id:'t6_ase', tier:6, lane:'osat', zh:'日月光投控 ASE Technology Holding', en:'ASE Technology Holding', role:'全球最大封測代工集團。',<br>&nbsp;companies:[{flag:'🇹🇼',name:'日月光投控',ticker:'TWSE:3711（ADR NYSE:ASX）'}],<br>&nbsp;info:['整合原日月光與矽品產能後組成的封測控股集團，是欣興、南電等台廠載板的最大下游客戶之一。','深度參與CoWoS等先進封裝服務，是AI晶片封裝鏈的核心節點之一。']},</p><p>{id:'t6_amkor', tier:6, lane:'osat', zh:'Amkor Technology', en:'Amkor Technology', role:'美系最大封測廠。',<br>&nbsp;companies:[{flag:'🇺🇸',name:'Amkor Technology',ticker:'NASDAQ:AMKR'}],<br>&nbsp;info:['客戶涵蓋高通、超微等大型IC設計公司。','近年加碼美國本土先進封裝產能，呼應半導體供應鏈在地化趨勢。']},</p><p>{id:'t6_jcet', tier:6, lane:'osat', zh:'江蘇長電科技 JCET', en:'JCET Group', role:'中國最大封測廠。',<br>&nbsp;companies:[{flag:'🇨🇳',name:'江蘇長電科技',ticker:'SH:600584'}],<br>&nbsp;info:['主要服務中國本土及部分國際IC設計客戶，在中低階載板與封裝需求上扮演重要角色。']},</p><p>{id:'t6_powertech', tier:6, lane:'osat', zh:'力成科技 Powertech Technology', en:'Powertech Technology', role:'記憶體封測見長的台廠。',<br>&nbsp;companies:[{flag:'🇹🇼',name:'力成科技',ticker:'TWSE:6239'}],<br>&nbsp;info:['以DRAM/NAND記憶體封測為核心強項。','是BT載板（WB-BGA/WB-CSP）下游需求的重要觀察指標。']},</p><p>// ---------------- L7 (end markets) ----------------<br>{id:'t7_aiserver', tier:7, lane:'end', zh:'AI伺服器／GPU', en:'AI Server &amp; GPU', role:'目前載板需求成長最快、規格要求最高的應用。',<br>&nbsp;badge:'高成長',<br>&nbsp;companies:[{flag:'🇺🇸',name:'NVIDIA',ticker:'NASDAQ:NVDA'},{flag:'🇺🇸',name:'AMD',ticker:'NASDAQ:AMD'},{flag:'🇺🇸',name:'Broadcom',ticker:'NASDAQ:AVGO'}],<br>&nbsp;info:['採用最高階ABF FC-BGA載板（20層以上），是2024–2030年載板需求成長最快的應用，預估CAGR約22.68%。','NVIDIA Blackwell平台帶動載板層數與面積同步擴大，是T-glass、ABF膜缺貨的主要需求推手。']},</p><p>{id:'t7_cpu', tier:7, lane:'end', zh:'PC／伺服器 CPU', en:'PC &amp; Server CPU', role:'目前載板第一大下游市場。',<br>&nbsp;companies:[{flag:'🇺🇸',name:'Intel',ticker:'NASDAQ:INTC'},{flag:'🇺🇸',name:'AMD',ticker:'NASDAQ:AMD'}],<br>&nbsp;info:['PC仍是載板第一大下游市場，占整體市場約39%。','Intel近年同步擴大自有先進封裝與基板產能投資，部分訂單會自製而非完全外包。']},</p><p>{id:'t7_network', tier:7, lane:'end', zh:'網通設備／5G基站', en:'Networking &amp; 5G', role:'南電的產品組合主力。',<br>&nbsp;companies:[{flag:'🇺🇸',name:'Broadcom',ticker:'NASDAQ:AVGO'},{flag:'🇺🇸',name:'Marvell',ticker:'NASDAQ:MRVL'}],<br>&nbsp;info:['南電網通載板占其產品組合約65–70%，是中高階ABF載板相對穩定的需求基本盤，景氣循環性較AI伺服器低。']},</p><p>{id:'t7_mobile', tier:7, lane:'end', zh:'智慧型手機 AP／基頻晶片', en:'Mobile AP / Baseband', role:'以BT FC-CSP／WB-CSP為主的應用。',<br>&nbsp;companies:[{flag:'🇺🇸',name:'Qualcomm',ticker:'NASDAQ:QCOM'},{flag:'🇹🇼',name:'聯發科 MediaTek',ticker:'TWSE:2454'},{flag:'🇺🇸',name:'Apple',ticker:'NASDAQ:AAPL'}],<br>&nbsp;info:['多採用面積較小的BT FC-CSP／WB-CSP載板，封裝形式以高整合度、輕薄化為訴求。']},</p><p>{id:'t7_memory', tier:7, lane:'end', zh:'記憶體 DRAM／NAND', en:'Memory', role:'力成等記憶體封測廠的核心下游需求來源。',<br>&nbsp;companies:[{flag:'🇰🇷',name:'Samsung Electronics',ticker:'KRX:005930'},{flag:'🇰🇷',name:'SK Hynix',ticker:'KRX:000660'},{flag:'🇺🇸',name:'Micron',ticker:'NASDAQ:MU'}],<br>&nbsp;info:['主要採用BT WB-BGA載板。','HBM（高頻寬記憶體）需求隨AI伺服器升溫，是記憶體載板規格升級的重要變數。']},</p><p>{id:'t7_auto', tier:7, lane:'end', zh:'車用電子／ADAS', en:'Automotive Electronics', role:'長期成長題材，但驗證門檻高。',<br>&nbsp;companies:[],<br>&nbsp;info:['車用對載板可靠性要求高，多採BT載板或中階ABF載板。','驗證週期長、認證門檻高，是未來成長性題材之一，但放量速度通常慢於消費性電子與AI伺服器。']},<br>];</p><p>// ---------- render helpers ----------<br>function chipHTML(c){<br>&nbsp; return `&lt;span class="chip"&gt;${c.flag?c.flag+' ':''}${c.ticker?`&lt;b&gt;${c.ticker}&lt;/b&gt;`:c.name}&lt;/span&gt;`;<br>}</p><p>function cardHTML(n){<br>&nbsp; const chips = (n.companies||[]).slice(0,3).map(chipHTML).join('');<br>&nbsp; const more = (n.companies||[]).length&gt;3 ? `&lt;span class="chip"&gt;+${n.companies.length-3}&lt;/span&gt;` : '';<br>&nbsp; const badge = n.badge ? `&lt;span class="badge${n.badge.includes('下市')?' warn':''}"&gt;${n.badge}&lt;/span&gt;` : '';<br>&nbsp; return `&lt;button class="node-card" style="--c:${LANE_VAR[n.lane]||'var(--copper)'}" data-id="${n.id}"&gt;<br>&nbsp; &nbsp; ${badge}<br>&nbsp; &nbsp; &lt;span class="eyebrow2"&gt;${TIER_LABEL[n.tier]} · ${LANE_LABEL[n.lane]||''}&lt;/span&gt;<br>&nbsp; &nbsp; &lt;h3&gt;${n.zh}&lt;/h3&gt;<br>&nbsp; &nbsp; &lt;span class="en"&gt;${n.en}&lt;/span&gt;<br>&nbsp; &nbsp; &lt;p class="role"&gt;${n.role}&lt;/p&gt;<br>&nbsp; &nbsp; &lt;div class="chips"&gt;${chips}${more}&lt;/div&gt;<br>&nbsp; &nbsp; &lt;span class="tap"&gt;點看詳細 →&lt;/span&gt;<br>&nbsp; &lt;/button&gt;`;<br>}</p><p>function fillGrid(containerId, nodes){<br>&nbsp; document.getElementById(containerId).innerHTML = nodes.map(cardHTML).join('');<br>}</p><p>// L1, L2 : 4-lane rows in fixed order<br>const LANE_ORDER = ['cu','gl','abf','bt'];<br>function byLane(tier){<br>&nbsp; return LANE_ORDER.map(l =&gt; DATA.find(n=&gt;n.tier===tier &amp;&amp; n.lane===l)).filter(Boolean);<br>}<br>fillGrid('grid-l1', byLane(1));<br>fillGrid('grid-l2', byLane(2));<br>fillGrid('grid-l3', byLane(3));</p><p>// merge card under L3<br>const ccl = DATA.find(n=&gt;n.id==='t3_ccl');<br>document.getElementById('merge-l3').innerHTML = `<br>&nbsp; &lt;div class="merge-card" data-id="${ccl.id}"&gt;<br>&nbsp; &nbsp; &lt;div class="arrowrow"&gt;↘ 銅箔　＋　↙ 玻纖布　＋　環氧樹脂　匯流為——&lt;/div&gt;<br>&nbsp; &nbsp; &lt;strong&gt;${ccl.zh}　&lt;span style="font-family:var(--mono); font-size:11px; color:var(--text-faint);"&gt;${ccl.en}&lt;/span&gt;&lt;/strong&gt;<br>&nbsp; &nbsp; &lt;p class="role" style="margin:6px 0 0;"&gt;${ccl.role}&lt;/p&gt;<br>&nbsp; &nbsp; &lt;div class="chips"&gt;${(ccl.companies||[]).map(chipHTML).join('')}&lt;/div&gt;<br>&nbsp; &lt;/div&gt;`;</p><p>// L4<br>fillGrid('grid-l4', DATA.filter(n=&gt;n.tier===4));</p><p>// Glass core substrate (emerging track, grouped by value-chain role rather than country)<br>const GLASS_LANES = [<br>&nbsp; {key:'gmat', icon:'🧪', label:'玻璃材料本身 Glass Material'},<br>&nbsp; {key:'gequip', icon:'🔬', label:'TGV雷射穿孔與精密加工設備 TGV Equipment'},<br>&nbsp; {key:'gplayer', icon:'🏭', label:'載板增層／RDL／面板級封裝整合（主戰場）'},<br>&nbsp; {key:'gchem', icon:'⚗️', label:'化學製程與濕製程封測代工 Process Chemicals &amp; OSAT'},<br>];<br>function renderGlassGroups(containerId){<br>&nbsp; const html = GLASS_LANES.map(g=&gt;{<br>&nbsp; &nbsp; const items = DATA.filter(n=&gt;n.tier==='G' &amp;&amp; n.lane===g.key);<br>&nbsp; &nbsp; if(!items.length) return '';<br>&nbsp; &nbsp; return `&lt;div&gt;<br>&nbsp; &nbsp; &nbsp; &lt;div class="group-head"&gt;&lt;span class="flag"&gt;${g.icon}&lt;/span&gt;&lt;h3&gt;${g.label}&lt;/h3&gt;&lt;/div&gt;<br>&nbsp; &nbsp; &nbsp; &lt;div class="group-grid"&gt;${items.map(cardHTML).join('')}&lt;/div&gt;<br>&nbsp; &nbsp; &lt;/div&gt;`;<br>&nbsp; }).join('');<br>&nbsp; document.getElementById(containerId).innerHTML = html;<br>}<br>renderGlassGroups('grid-glass');</p><p>// L5, L6 grouped by country<br>function groupByCountry(tier, order){<br>&nbsp; const nodes = DATA.filter(n=&gt;n.tier===tier);<br>&nbsp; const groups = {};<br>&nbsp; nodes.forEach(n=&gt;{<br>&nbsp; &nbsp; const c = (n.companies &amp;&amp; n.companies[0]) || {flag:'',name:''};<br>&nbsp; &nbsp; const key = order.find(o=&gt;c.flag===o.flag) ? c.flag : c.flag;<br>&nbsp; &nbsp; if(!groups[key]) groups[key] = {flag:c.flag, label:'', items:[]};<br>&nbsp; &nbsp; groups[key].items.push(n);<br>&nbsp; });<br>&nbsp; return order.filter(o=&gt;groups[o.flag]).map(o=&gt;({flag:o.flag, label:o.label, items:groups[o.flag].items}));<br>}<br>const L5_ORDER = [{flag:'🇹🇼',label:'台灣 Taiwan'},{flag:'🇯🇵',label:'日本 Japan'},{flag:'🇰🇷',label:'韓國 Korea'},{flag:'🇦🇹',label:'奧地利 Austria'}];<br>const L6_ORDER = [{flag:'🇹🇼',label:'台灣 Taiwan'},{flag:'🇺🇸',label:'美國 USA'},{flag:'🇨🇳',label:'中國 China'}];</p><p>function renderGroups(containerId, tier, order){<br>&nbsp; const groups = groupByCountry(tier, order);<br>&nbsp; document.getElementById(containerId).innerHTML = groups.map(g =&gt; `<br>&nbsp; &nbsp; &lt;div&gt;<br>&nbsp; &nbsp; &nbsp; &lt;div class="group-head"&gt;&lt;span class="flag"&gt;${g.flag}&lt;/span&gt;&lt;h3&gt;${g.label}&lt;/h3&gt;&lt;/div&gt;<br>&nbsp; &nbsp; &nbsp; &lt;div class="group-grid"&gt;${g.items.map(cardHTML).join('')}&lt;/div&gt;<br>&nbsp; &nbsp; &lt;/div&gt;`).join('');<br>}<br>renderGroups('grid-l5', 5, L5_ORDER);<br>renderGroups('grid-l6', 6, L6_ORDER);</p><p>// L7<br>fillGrid('grid-l7', DATA.filter(n=&gt;n.tier===7));</p><p>// ---------- modal ----------<br>const overlay = document.getElementById('modalOverlay');<br>const modalBody = document.getElementById('modalBody');<br>let lastFocused = null;</p><p>function openModal(id){<br>&nbsp; const n = DATA.find(x=&gt;x.id===id);<br>&nbsp; if(!n) return;<br>&nbsp; lastFocused = document.activeElement;</p><p>&nbsp; const companiesHTML = (n.companies &amp;&amp; n.companies.length) ? `<br>&nbsp; &nbsp; &lt;h4&gt;相關公司&lt;/h4&gt;<br>&nbsp; &nbsp; ${n.companies.map(c=&gt;`<br>&nbsp; &nbsp; &nbsp; &lt;div class="co-row"&gt;<br>&nbsp; &nbsp; &nbsp; &nbsp; &lt;span class="flag"&gt;${c.flag||''}&lt;/span&gt;<br>&nbsp; &nbsp; &nbsp; &nbsp; &lt;span class="name"&gt;${c.name}&lt;/span&gt;<br>&nbsp; &nbsp; &nbsp; &nbsp; ${c.ticker?`&lt;span class="ticker"&gt;${c.ticker}&lt;/span&gt;`:''}<br>&nbsp; &nbsp; &nbsp; &nbsp; ${c.note?`&lt;span class="note"&gt;${c.note}&lt;/span&gt;`:''}<br>&nbsp; &nbsp; &nbsp; &lt;/div&gt;`).join('')}` : '';</p><p>&nbsp; const infoHTML = (n.info &amp;&amp; n.info.length) ? `&lt;h4&gt;重點資訊&lt;/h4&gt;&lt;ul class="bullets"&gt;${n.info.map(i=&gt;`&lt;li&gt;${i}&lt;/li&gt;`).join('')}&lt;/ul&gt;` : '';<br>&nbsp; const investHTML = n.invest ? `&lt;div class="invest-box"&gt;&lt;span class="lbl"&gt;投資觀察&lt;/span&gt;${n.invest}&lt;/div&gt;` : '';<br>&nbsp; const chainHTML = (n.up||n.down) ? `&lt;div class="chain-row"&gt;<br>&nbsp; &nbsp; &nbsp; ${n.up?`&lt;span&gt;&lt;span class="k"&gt;UP&lt;/span&gt; ${n.up}&lt;/span&gt;`:''}<br>&nbsp; &nbsp; &nbsp; ${n.down?`&lt;span&gt;&lt;span class="k"&gt;DOWN&lt;/span&gt; ${n.down}&lt;/span&gt;`:''}<br>&nbsp; &nbsp; &lt;/div&gt;` : '';</p><p>&nbsp; modalBody.innerHTML = `<br>&nbsp; &nbsp; &lt;div class="m-eyebrow"&gt;${TIER_LABEL[n.tier]}${n.lane &amp;&amp; LANE_LABEL[n.lane] ? ' · '+LANE_LABEL[n.lane] : ''}&lt;/div&gt;<br>&nbsp; &nbsp; &lt;h2 id="modalTitle"&gt;${n.zh}&lt;/h2&gt;<br>&nbsp; &nbsp; &lt;div class="m-en"&gt;${n.en}&lt;/div&gt;<br>&nbsp; &nbsp; &lt;p class="role" style="font-size:14px; color:var(--text-dim);"&gt;${n.role}&lt;/p&gt;<br>&nbsp; &nbsp; ${chainHTML}<br>&nbsp; &nbsp; ${infoHTML}<br>&nbsp; &nbsp; ${companiesHTML}<br>&nbsp; &nbsp; ${investHTML}<br>&nbsp; `;<br>&nbsp; overlay.hidden = false;<br>&nbsp; document.getElementById('modalClose').focus();<br>&nbsp; document.addEventListener('keydown', onKeydown);<br>}</p><p>function closeModal(){<br>&nbsp; overlay.hidden = true;<br>&nbsp; document.removeEventListener('keydown', onKeydown);<br>&nbsp; if(lastFocused) lastFocused.focus();<br>}</p><p>function onKeydown(e){<br>&nbsp; if(e.key === 'Escape') closeModal();<br>}</p><p>document.addEventListener('click', (e)=&gt;{<br>&nbsp; const card = e.target.closest('[data-id]');<br>&nbsp; if(card){ openModal(card.getAttribute('data-id')); return; }<br>&nbsp; if(e.target === overlay){ closeModal(); }<br>});<br>document.getElementById('modalClose').addEventListener('click', closeModal);<br>&lt;/script&gt;</p><p>&lt;/body&gt;<br>&lt;/html&gt;<br></p></body></html>
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IC載板供應鏈地圖｜礦砂到AI伺服器</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0D1410;
+    --bg-2:#0F1713;
+    --panel:#16201A;
+    --panel-2:#1C2922;
+    --panel-hover:#22312A;
+    --hair:#2A3A32;
+    --hair-soft:#202E27;
+    --text:#EBEFE6;
+    --text-dim:#9CAB9D;
+    --text-faint:#6E7E72;
+    --copper:#C9783F;
+    --copper-bright:#E2A268;
+    --gold:#D9B24C;
+    --lane-cu:#C9783F;
+    --lane-gl:#6FB6C4;
+    --lane-abf:#E0A33D;
+    --lane-bt:#A487D9;
+    --lane-proc:#7E8F84;
+    --lane-maker:#D9B24C;
+    --lane-osat:#6FA89F;
+    --lane-end:#7C92C9;
+  --glass:#5AA9E0;
+    --radius:10px;
+    --mono:'IBM Plex Mono', ui-monospace, monospace;
+    --sans:'Noto Sans TC','PingFang TC','Microsoft JhengHei', sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+  body{
+    margin:0;
+    background:
+      radial-gradient(ellipse at top, rgba(201,120,63,0.07), transparent 55%),
+      repeating-linear-gradient(0deg, rgba(255,255,255,0.018) 0px, rgba(255,255,255,0.018) 1px, transparent 1px, transparent 28px),
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.018) 0px, rgba(255,255,255,0.018) 1px, transparent 1px, transparent 28px),
+      var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    font-size:15.5px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1180px; margin:0 auto; padding:0 18px;}
+  a{color:var(--copper-bright);}
+
+  /* ---------- Header / Hero ---------- */
+  header.hero{padding:48px 0 28px; border-bottom:1px solid var(--hair);}
+  .eyebrow{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.18em; text-transform:uppercase;
+    color:var(--copper-bright); display:flex; align-items:center; gap:10px; margin-bottom:14px;
+  }
+  .eyebrow::before{content:""; width:22px; height:1px; background:var(--copper);}
+  h1{
+    font-family:var(--mono); font-weight:700;
+    font-size:clamp(1.6rem, 4.2vw, 2.5rem);
+    margin:0 0 10px; letter-spacing:-0.01em; color:var(--text);
+  }
+  h1 span{color:var(--copper-bright);}
+  .hero p.lede{max-width:640px; color:var(--text-dim); font-size:15.5px; margin:0 0 22px;}
+
+  .flowstrip{
+    display:flex; flex-wrap:wrap; align-items:center; gap:8px;
+    font-family:var(--mono); font-size:12.5px; color:var(--text-dim);
+    margin-bottom:26px; padding:12px 14px; background:var(--panel); border:1px solid var(--hair); border-radius:var(--radius);
+  }
+  .flowstrip b{color:var(--text); font-weight:600;}
+  .flowstrip .arrow{color:var(--copper); opacity:.8;}
+
+  .stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:12px; margin-bottom:8px;}
+  .stat{background:var(--panel); border:1px solid var(--hair); border-radius:var(--radius); padding:14px 16px;}
+  .stat .num{font-family:var(--mono); font-size:1.5rem; font-weight:700; color:var(--copper-bright);}
+  .stat .lbl{font-size:12.5px; color:var(--text-dim); margin-top:4px;}
+
+  /* stackup decorative bar */
+  .stackup{display:flex; gap:3px; margin:26px 0 4px; height:34px;}
+  .stackup div{flex:1; border-radius:3px; display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono); font-size:10.5px; color:#0D1410; font-weight:700; letter-spacing:.03em;
+    opacity:0; animation:rise .5s ease forwards;}
+  .stackup div:nth-child(1){background:var(--lane-cu); animation-delay:.02s;}
+  .stackup div:nth-child(2){background:var(--lane-gl); animation-delay:.08s;}
+  .stackup div:nth-child(3){background:var(--lane-abf); animation-delay:.14s;}
+  .stackup div:nth-child(4){background:var(--lane-proc); animation-delay:.2s;}
+  .stackup div:nth-child(5){background:var(--lane-maker); animation-delay:.26s;}
+  .stackup div:nth-child(6){background:var(--lane-osat); animation-delay:.32s;}
+  .stackup div:nth-child(7){background:var(--lane-end); animation-delay:.38s;}
+  @keyframes rise{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
+
+  /* ---------- Sticky nav ---------- */
+  nav.pills{
+    position:sticky; top:0; z-index:30;
+    background:rgba(13,20,16,0.92); backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--hair);
+    overflow-x:auto; white-space:nowrap;
+  }
+  nav.pills .wrap{display:flex; gap:6px; padding:10px 18px;}
+  nav.pills a{
+    font-family:var(--mono); font-size:12px; color:var(--text-dim); text-decoration:none;
+    padding:7px 12px; border-radius:999px; border:1px solid var(--hair); flex:0 0 auto;
+    transition:all .15s ease;
+  }
+  nav.pills a:hover{color:var(--text); border-color:var(--copper); background:var(--panel);}
+
+  /* ---------- Legend ---------- */
+  .legend{display:flex; flex-wrap:wrap; gap:16px; padding:18px 0; font-size:12.5px; color:var(--text-dim);}
+  .legend .item{display:flex; align-items:center; gap:7px;}
+  .legend .dot{width:9px; height:9px; border-radius:2px; display:inline-block;}
+
+  /* ---------- Tier sections ---------- */
+  section.tier{padding:34px 0; border-top:1px dashed var(--hair-soft);}
+  section.tier:first-of-type{border-top:none;}
+  .tier-head{margin-bottom:18px;}
+  .tier-tag{font-family:var(--mono); font-size:11px; letter-spacing:.12em; color:var(--text-faint); text-transform:uppercase;}
+  .tier-head h2{font-family:var(--mono); font-size:1.15rem; margin:4px 0 6px; color:var(--text); font-weight:600;}
+  .tier-head p{margin:0; color:var(--text-dim); font-size:14px; max-width:680px;}
+
+  .lane-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:13px;}
+  .conn-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:13px; height:26px; margin:2px 0;}
+  .conn{display:flex; align-items:center; justify-content:center; position:relative;}
+  .conn::before{content:""; width:1px; height:100%; background:linear-gradient(var(--hair), var(--c, var(--copper)), var(--hair));}
+  .conn::after{content:""; position:absolute; width:6px; height:6px; border-radius:50%; background:var(--c, var(--copper)); border:2px solid var(--bg);}
+  .conn[data-c="cu"]{--c:var(--lane-cu);}
+  .conn[data-c="gl"]{--c:var(--lane-gl);}
+  .conn[data-c="abf"]{--c:var(--lane-abf);}
+  .conn[data-c="bt"]{--c:var(--lane-bt);}
+
+  @media (max-width:880px){
+    .lane-grid, .conn-grid{grid-template-columns:repeat(2,1fr);}
+  }
+  @media (max-width:520px){
+    .lane-grid, .conn-grid{grid-template-columns:1fr;}
+    .conn-grid{height:20px;}
+  }
+
+  .group-wrap{display:flex; flex-direction:column; gap:22px;}
+  .group-head{display:flex; align-items:center; gap:9px; margin-bottom:10px;}
+  .group-head .flag{font-size:18px;}
+  .group-head h3{font-family:var(--mono); font-size:13px; letter-spacing:.05em; color:var(--text-dim); margin:0; font-weight:500;}
+  .group-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(225px,1fr)); gap:13px;}
+
+  /* ---------- Node Card ---------- */
+  .node-card{
+    text-align:left; cursor:pointer; width:100%;
+    background:var(--panel); border:1px solid var(--hair); border-top:3px solid var(--c, var(--copper));
+    border-radius:var(--radius); padding:14px 15px; color:var(--text); font-family:var(--sans);
+    transition:transform .15s ease, background .15s ease, border-color .15s ease;
+    display:flex; flex-direction:column; gap:6px; position:relative;
+  }
+  .node-card:hover, .node-card:focus-visible{background:var(--panel-hover); transform:translateY(-2px); border-color:var(--hair); outline:none;}
+  .node-card:focus-visible{box-shadow:0 0 0 2px var(--copper);}
+  .node-card .badge{
+    position:absolute; top:-9px; right:10px; font-family:var(--mono); font-size:9.5px; letter-spacing:.04em;
+    background:var(--gold); color:#1A1306; padding:2px 7px; border-radius:999px; font-weight:700;
+  }
+  .node-card .badge.warn{background:#8A6A6A; color:#fff;}
+  .node-card .eyebrow2{font-family:var(--mono); font-size:10px; color:var(--text-faint); letter-spacing:.04em;}
+  .node-card h3{margin:0; font-size:15.5px; font-weight:700; color:var(--text);}
+  .node-card .en{font-family:var(--mono); font-size:10.5px; color:var(--text-faint); margin-top:-4px;}
+  .node-card .role{font-size:12.5px; color:var(--text-dim); margin:2px 0 0; line-height:1.55;}
+  .node-card .chips{display:flex; flex-wrap:wrap; gap:5px; margin-top:6px;}
+  .chip{
+    font-family:var(--mono); font-size:10.5px; background:var(--panel-2); border:1px solid var(--hair);
+    padding:2px 7px; border-radius:5px; color:var(--text-dim); display:inline-flex; align-items:center; gap:4px;
+  }
+  .chip b{color:var(--text); font-weight:600;}
+  .node-card .tap{font-size:10.5px; color:var(--text-faint); margin-top:auto; padding-top:4px;}
+
+  .merge-card{
+    margin-top:13px; background:var(--panel-2); border:1px dashed var(--hair); border-radius:var(--radius);
+    padding:14px 16px; cursor:pointer; transition:background .15s ease;
+  }
+  .merge-card:hover{background:var(--panel-hover);}
+  .merge-card .arrowrow{font-family:var(--mono); font-size:11px; color:var(--text-faint); margin-bottom:4px;}
+
+  .merge-banner{
+    text-align:center; font-family:var(--mono); font-size:12px; color:var(--text-faint);
+    padding:14px 0; letter-spacing:.04em;
+  }
+  .merge-banner b{color:var(--copper-bright);}
+
+  .compare-card{background:var(--panel); border:1px solid var(--hair); border-radius:var(--radius); padding:18px; margin-bottom:18px;}
+  .compare-card h3{margin:0 0 4px; font-size:15.5px; color:var(--text);}
+  .compare-card .sub{font-size:12.5px; color:var(--text-dim); margin-bottom:14px;}
+  .compare-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  @media (max-width:640px){.compare-grid{grid-template-columns:1fr;}}
+  .compare-col{background:var(--panel-2); border:1px solid var(--hair); border-radius:8px; padding:14px;}
+  .compare-col.old{border-top:3px solid var(--lane-gl);}
+  .compare-col.new{border-top:3px solid var(--glass);}
+  .compare-col h4{margin:0 0 9px; font-family:var(--mono); font-size:11px; letter-spacing:.05em; text-transform:uppercase; color:var(--text-dim);}
+  .compare-col ul{margin:0; padding-left:16px; font-size:13.5px; color:var(--text-dim); line-height:1.65;}
+  .compare-col ul li{margin-bottom:5px;}
+  .compare-foot{margin-top:14px; font-size:12.5px; color:var(--text-dim); border-top:1px dashed var(--hair-soft); padding-top:10px; line-height:1.6;}
+
+  /* ---------- Footer title block ---------- */
+  footer{padding:40px 0 60px;}
+  .stamp{
+    border:1px solid var(--hair); border-radius:var(--radius); background:var(--panel);
+    padding:20px 22px; font-family:var(--mono); font-size:12px; color:var(--text-dim);
+  }
+  .stamp .row{display:flex; flex-wrap:wrap; gap:6px 14px; padding:7px 0; border-top:1px solid var(--hair-soft);}
+  .stamp .row:first-child{border-top:none; padding-top:0;}
+  .stamp .row .k{color:var(--text-faint); min-width:96px; flex:0 0 auto;}
+  .stamp .row .v{color:var(--text-dim); flex:1 1 200px;}
+  .stamp .title{font-size:14px; color:var(--text); font-weight:600; margin-bottom:10px;}
+
+  /* ---------- Modal ---------- */
+  .modal-overlay{
+    position:fixed; inset:0; background:rgba(8,12,10,0.78); backdrop-filter:blur(2px);
+    display:flex; align-items:flex-end; justify-content:center; z-index:100; padding:0;
+  }
+  @media (min-width:680px){
+    .modal-overlay{align-items:center; padding:24px;}
+  }
+  .modal-overlay[hidden]{display:none;}
+  .modal{
+    background:var(--bg-2); border:1px solid var(--hair); border-radius:14px 14px 0 0;
+    max-width:560px; width:100%; max-height:88vh; overflow-y:auto; position:relative;
+    padding:26px 22px 24px; animation:slideup .22s ease;
+  }
+  @media (min-width:680px){
+    .modal{border-radius:14px; padding:30px 28px 26px;}
+  }
+  @keyframes slideup{from{transform:translateY(16px); opacity:0;} to{transform:translateY(0); opacity:1;}}
+  .modal::before, .modal::after{
+    content:""; position:absolute; width:16px; height:16px; border-color:var(--copper); opacity:.55;
+  }
+  .modal::before{top:10px; left:10px; border-top:2px solid; border-left:2px solid;}
+  .modal::after{bottom:10px; right:10px; border-bottom:2px solid; border-right:2px solid;}
+  .modal .close{
+    position:absolute; top:16px; right:16px; background:var(--panel); border:1px solid var(--hair);
+    color:var(--text-dim); width:30px; height:30px; border-radius:50%; cursor:pointer; font-size:16px;
+    display:flex; align-items:center; justify-content:center; line-height:1;
+  }
+  .modal .close:hover{color:var(--text); border-color:var(--copper);}
+  .modal .m-eyebrow{font-family:var(--mono); font-size:11px; letter-spacing:.08em; color:var(--copper-bright); text-transform:uppercase;}
+  .modal h2{font-size:1.2rem; margin:8px 0 2px; font-weight:700; padding-right:26px;}
+  .modal .m-en{font-family:var(--mono); font-size:12px; color:var(--text-faint); margin-bottom:14px;}
+  .modal h4{
+    font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--text-faint); margin:18px 0 8px; display:flex; align-items:center; gap:8px;
+  }
+  .modal h4::after{content:""; flex:1; height:1px; background:var(--hair);}
+  .modal ul.bullets{margin:0; padding-left:18px; color:var(--text-dim); font-size:14px; line-height:1.7;}
+  .modal ul.bullets li{margin-bottom:6px;}
+  .co-row{
+    display:flex; flex-wrap:wrap; align-items:baseline; gap:8px; padding:9px 0; border-bottom:1px solid var(--hair-soft);
+  }
+  .co-row:last-child{border-bottom:none;}
+  .co-row .flag{font-size:15px;}
+  .co-row .name{font-weight:600; font-size:14px;}
+  .co-row .ticker{font-family:var(--mono); font-size:11px; background:var(--panel); border:1px solid var(--hair); padding:1px 7px; border-radius:5px; color:var(--copper-bright);}
+  .co-row .note{flex-basis:100%; font-size:12.5px; color:var(--text-dim); margin-top:2px;}
+  .invest-box{
+    margin-top:16px; background:rgba(217,178,76,0.08); border:1px solid rgba(217,178,76,0.35);
+    border-radius:8px; padding:12px 14px; font-size:13.5px; color:#E8D9A8; line-height:1.65;
+  }
+  .invest-box .lbl{font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; color:var(--gold); margin-bottom:4px; display:block;}
+  .chain-row{display:flex; flex-wrap:wrap; gap:8px; font-size:12.5px; color:var(--text-dim); margin-top:6px;}
+  .chain-row .k{font-family:var(--mono); font-size:10px; color:var(--text-faint);}
+
+  .disclaimer{font-size:11px; color:var(--text-faint); margin-top:18px; line-height:1.6;}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">SUPPLY CHAIN SCHEMATIC · 產業地圖</div>
+    <h1>IC載板供應鏈<span>．</span>從礦砂到AI伺服器</h1>
+    <p class="lede">把整條供應鏈當作一片多層板的疊構來看：原礦與石化原料是最底層，往上一層層壓合出材料、載板、封裝，最後才露出大家熟悉的 NVIDIA、AMD、Intel。點任一張卡片看細節與相關公司。</p>
+
+    <div class="flowstrip">
+      <b>日本掌握關鍵材料</b><span class="arrow">→</span><b>台／日／韓／奧載板廠製造</b><span class="arrow">→</span><b>封裝測試廠組裝</b><span class="arrow">→</span><b>AI伺服器・PC・手機</b>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="num">35–55%</div><div class="lbl">IC載板佔半導體封裝製程成本比重</div></div>
+      <div class="stat"><div class="num">32.8%</div><div class="lbl">台灣全球載板產值市占（第一）</div></div>
+      <div class="stat"><div class="num">~95%</div><div class="lbl">味の素 ABF增層膜全球市占</div></div>
+      <div class="stat"><div class="num">~22.7%</div><div class="lbl">AI/HPC應用 2024–2030 預估CAGR</div></div>
+    </div>
+
+    <div class="stackup" aria-hidden="true">
+      <div>L1</div><div>L2</div><div>L3</div><div>L4</div><div>L5</div><div>L6</div><div>L7</div>
+    </div>
+  </div>
+</header>
+
+<nav class="pills" aria-label="供應鏈層級導覽">
+  <div class="wrap">
+    <a href="#l1">L1 礦業／石化</a>
+    <a href="#l2">L2 化工中間體</a>
+    <a href="#l3">L3 關鍵材料</a>
+    <a href="#lg" style="border-color:rgba(90,169,224,.5); color:#9CC7E8;">GX 玻璃基板</a>
+    <a href="#l4">L4 製程設備</a>
+    <a href="#l5">L5 載板製造</a>
+    <a href="#l6">L6 封裝測試</a>
+    <a href="#l7">L7 終端應用</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <div class="legend">
+    <span class="item"><span class="dot" style="background:var(--lane-cu)"></span>銅 Copper 支線</span>
+    <span class="item"><span class="dot" style="background:var(--lane-gl)"></span>玻纖 Glass 支線</span>
+    <span class="item"><span class="dot" style="background:var(--lane-abf)"></span>ABF環氧樹脂支線</span>
+    <span class="item"><span class="dot" style="background:var(--lane-bt)"></span>BT樹脂支線</span>
+    <span class="item"><span class="dot" style="background:var(--gold)"></span>關鍵獨占／高關注</span>
+    <span class="item"><span class="dot" style="background:var(--glass)"></span>玻璃基板（新興技術）</span>
+    <span class="item">🇹🇼🇯🇵🇰🇷🇦🇹🇺🇸🇨🇳 = 公司所在地</span>
+  </div>
+
+  <section class="tier" id="l1">
+    <div class="tier-head">
+      <div class="tier-tag">Layer 01</div>
+      <h2>礦業／石化基礎原料</h2>
+      <p>整條供應鏈最底層，也是最貼近大宗商品與地緣政治的一層。四條支線在這裡同時起跑：銅、玻璃用礦物，以及分岔成兩條路徑的石油化學原料。</p>
+    </div>
+    <div class="lane-grid" id="grid-l1"></div>
+  </section>
+
+  <section class="tier" id="l2">
+    <div class="tier-head">
+      <div class="tier-tag">Layer 02</div>
+      <h2>化工中間體</h2>
+      <p>原礦與石油被加工成半成品：電解液、玻璃熔液、樹脂前驅體。這一層幾乎沒有單一上市公司能直接對應，但決定了下一層材料的品質上限。</p>
+    </div>
+    <div class="conn-grid" id="conn-12">
+      <div class="conn" data-c="cu"></div><div class="conn" data-c="gl"></div><div class="conn" data-c="abf"></div><div class="conn" data-c="bt"></div>
+    </div>
+    <div class="lane-grid" id="grid-l2"></div>
+  </section>
+
+  <section class="tier" id="l3">
+    <div class="tier-head">
+      <div class="tier-tag">Layer 03</div>
+      <h2>結構性關鍵材料</h2>
+      <p>真正卡關的一層。ABF增層膜、BT樹脂基材、T-glass玻纖布、超薄電解銅箔，背後幾乎都站著一兩家日商，是整條鏈議價權最集中的地方。</p>
+    </div>
+    <div class="conn-grid" id="conn-23">
+      <div class="conn" data-c="cu"></div><div class="conn" data-c="gl"></div><div class="conn" data-c="abf"></div><div class="conn" data-c="bt"></div>
+    </div>
+    <div class="lane-grid" id="grid-l3"></div>
+    <div id="merge-l3"></div>
+  </section>
+
+  <section class="tier" id="lg">
+    <div class="tier-head">
+      <div class="tier-tag" style="color:#9CC7E8;">Emerging Track · 平行賽道</div>
+      <h2>玻璃基板 Glass Core Substrate：挑戰ABF/BT的下一代核心材料</h2>
+      <p>把玻璃直接當成載板的「核心層」，取代L3裡的ABF或BT樹脂基材：幾乎不翹曲、線路可以做得比有機載板更細、訊號損耗更低。代價是玻璃很脆、現階段成本高、良率還在爬升。這條賽道目前仍在打樣／試產階段，2026年是驗證年，業界共識是要到2027年中至2028年才會真正放量。</p>
+    </div>
+
+    <div class="compare-card">
+      <h3>同樣叫「玻璃」，為什麼本質不一樣？</h3>
+      <p class="sub">L3的T-glass玻纖布，跟這裡的玻璃基板，雖然都從矽砂熔融拉製而成，但變成成品時走的是兩條完全不同的路。</p>
+      <div class="compare-grid">
+        <div class="compare-col old">
+          <h4>傳統做法・玻纖布（L3・T-glass）</h4>
+          <ul>
+            <li>玻璃纖維紗「織成布」，泡進環氧樹脂裡固化</li>
+            <li>是樹脂裡的補強材料，自己不是結構主體</li>
+            <li>有經緯紋路：樹脂多的地方跟玻纖多的地方介電常數不同</li>
+            <li>高速訊號通過時容易產生「玻纖效應」造成訊號偏斜</li>
+            <li>沿用傳統機械／雷射鑽孔＋電鍍工藝</li>
+          </ul>
+        </div>
+        <div class="compare-col new">
+          <h4>新做法・玻璃核心（GX・Glass Core）</h4>
+          <ul>
+            <li>整片實心工程玻璃，直接當結構骨架，不混樹脂</li>
+            <li>沒有編織紋路，材質均勻、超平整</li>
+            <li>CTE與矽更接近，高溫下幾乎不翹曲</li>
+            <li>介電損耗更低，高頻訊號更乾淨、可佈線更密</li>
+            <li>需要全新的TGV雷射改質＋蝕刻工藝，設備幾乎重來一遍</li>
+          </ul>
+        </div>
+      </div>
+      <p class="compare-foot">簡單說：一個是「織進樹脂裡的補強材料」，一個是「材料本身就是結構」。這也是為什麼玻璃基板被視為核心層的世代交替，而不只是材料的小升級。</p>
+    </div>
+
+    <div class="flowstrip" style="border-color:rgba(90,169,224,.35);">
+      <b>2025 Intel於Arizona驗證1微米級RDL線路</b><span class="arrow">→</span><b>2026上半年 各廠送樣／試產線陸續建置</b><span class="arrow">→</span><b>2026下半年 Intel衝刺首批客戶出貨、Absolics拚量產</b><span class="arrow">→</span><b>2027–2028 三星與台廠陸續放量</b>
+    </div>
+
+    <div class="invest-box">
+      <span class="lbl">投資觀察：題材先行，量產未到</span>
+      玻璃基板現階段不是要「全面取代」ABF/BT，而是先在最高階的AI／HPC封裝小量試用。2026年台股的玻璃基板概念股，本質上比較接近「卡位股」而非「獲利股」——多數公司營收貢獻還很小，真正放量普遍預期落在2027年中之後。脆性、良率（業界估約75–85%）與成本（市場研究機構估計約為成熟ABF載板的2–3倍）是觀察量產能否如期到來的三個關鍵變數，建議留意季報中「玻璃基板」相關營收占比是否真的從0開始墊高，而不只是法說會的願景描述。
+    </div>
+
+    <div class="group-wrap" id="grid-glass"></div>
+  </section>
+
+  <section class="tier" id="l4">
+    <div class="tier-head">
+      <div class="tier-tag">Layer 04</div>
+      <h2>製程化學品與設備</h2>
+      <p>不算材料支線，而是橫向支援整條產線的「製程輸入」：光阻、蝕刻、電鍍化學品，以及決定良率與交期的雷射鑽孔設備。</p>
+    </div>
+    <div class="lane-grid" id="grid-l4" style="grid-template-columns:repeat(2,1fr); max-width:600px;"></div>
+    <div class="merge-banner">▼ 材料層（L1–L3）＋ 製程支援（L4）匯流進入 <b>L5 載板製造廠</b></div>
+  </section>
+
+  <section class="tier" id="l5">
+    <div class="tier-head">
+      <div class="tier-tag">Layer 05 · 主角</div>
+      <h2>載板製造廠</h2>
+      <p>整張地圖的主角，依國家分組。這裡才是台股投資人最常討論的「載板股」本尊。</p>
+    </div>
+    <div class="group-wrap" id="grid-l5"></div>
+  </section>
+
+  <section class="tier" id="l6">
+    <div class="tier-head">
+      <div class="tier-tag">Layer 06</div>
+      <h2>封裝測試廠（下游直接客戶）</h2>
+      <p>載板做好之後，送進封測廠把晶片黏上去、打線或覆晶、測試，才算完成一顆IC。</p>
+    </div>
+    <div class="group-wrap" id="grid-l6"></div>
+  </section>
+
+  <section class="tier" id="l7">
+    <div class="tier-head">
+      <div class="tier-tag">Layer 07</div>
+      <h2>終端應用與晶片品牌</h2>
+      <p>最後露出水面的一層，也是市場情緒最敏感的一層。同一片載板，因為終端應用不同，會走向完全不同的規格與廠商。</p>
+    </div>
+    <div class="lane-grid" id="grid-l7" style="grid-template-columns:repeat(3,1fr);"></div>
+  </section>
+
+  <footer>
+    <div class="stamp">
+      <div class="title">IC SUBSTRATE SUPPLY CHAIN SCHEMATIC</div>
+      <div class="row"><span class="k">REV</span><span class="v">v1.1 — 新增GX玻璃基板（Glass Core Substrate）研究；下一版規劃擴充完整AI伺服器供應鏈（CoWoS先進封裝／HBM／液冷散熱／電源管理）</span></div>
+      <div class="row"><span class="k">DATE</span><span class="v">2026.06.20</span></div>
+      <div class="row"><span class="k">SOURCE</span><span class="v">彙整自產業公開資訊與公司公告（味の素、日東紡、三菱瓦斯化學、Resonac、Intel、Corning、SKC／Absolics、台日韓上市公司財報、商業周刊／經濟日報／TrendForce等媒體報導），部分數字引用自使用者提供的整理稿</span></div>
+      <div class="row"><span class="k">NOTE</span><span class="v">股票代號、市占率、產能數字僅供研究參考，請以公司最新公告與即時報價為準；新光電気工業已於2025年6月私有化下市，現非公開發行股票；GX玻璃基板區塊多為2026年試產階段的前瞻性資訊，量產時程與良率數字屬產業預估，實際進度可能調整</span></div>
+    </div>
+    <p class="disclaimer">本頁僅為產業結構整理與公開資訊彙整，不構成投資建議、亦非任何證券之買賣推薦。投資前請自行查證並評估風險，或諮詢專業投資顧問。</p>
+  </footer>
+</main>
+
+<div class="modal-overlay" id="modalOverlay" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="close" id="modalClose" aria-label="關閉">✕</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+const TIER_LABEL = {1:'L1 礦業／石化',2:'L2 化工中間體',3:'L3 結構材料',4:'L4 製程支援',5:'L5 載板製造',6:'L6 封裝測試',7:'L7 終端應用','G':'GX 玻璃基板'};
+const LANE_LABEL = {cu:'銅 Copper',gl:'玻纖 Glass',abf:'ABF樹脂',bt:'BT樹脂',proc:'製程支援',maker:'載板廠',osat:'封測廠',end:'終端應用',gmat:'玻璃材料',gequip:'TGV設備',gplayer:'載板整合',gchem:'製程化學'};
+const LANE_VAR = {cu:'var(--lane-cu)',gl:'var(--lane-gl)',abf:'var(--lane-abf)',bt:'var(--lane-bt)',proc:'var(--lane-proc)',maker:'var(--lane-maker)',osat:'var(--lane-osat)',end:'var(--lane-end)',gmat:'var(--glass)',gequip:'var(--glass)',gplayer:'var(--glass)',gchem:'var(--glass)'};
+
+const DATA = [
+// ---------------- L1 ----------------
+{id:'t1_cu', tier:1, lane:'cu', zh:'銅礦', en:'Copper Ore', role:'電解銅箔最源頭的原料，產地集中於少數國家。',
+ info:['全球銅礦高度集中於智利、秘魯、剛果（金）等地，地緣政治敏感度高。','經火法冶煉、電解精煉成為高純度精銅（純度≥99.99%），才能進一步加工成電解銅箔。'],
+ companies:[{flag:'🇺🇸',name:'Freeport-McMoRan',ticker:'NYSE:FCX',note:'全球大型銅礦商，銅價／供給指標股之一，非載板鏈專屬。'},{flag:'🇺🇸',name:'Southern Copper',ticker:'NYSE:SCCO',note:'美洲大型銅礦商。'},{flag:'🇨🇳',name:'江西銅業',ticker:'SH:600362',note:'中國大型銅冶煉集團。'}],
+ down:'銅礦 → 精煉銅／硫酸銅溶液 → 超薄電解銅箔'},
+
+{id:'t1_gl', tier:1, lane:'gl', zh:'矽砂・礬土・硼砂等礦物', en:'Silica / Alumina / Borax', role:'玻璃纖維布的礦物源頭。',
+ info:['玻纖布的礦物原料以二氧化矽（SiO₂，約65%）為主體，搭配氧化鋁（約14%）、氧化硼（約6%）調整特性。','高溫（1500°C以上）熔融後，由白金合金噴嘴拉絲成直徑僅數微米的玻璃纖維絲。'],
+ companies:[{flag:'🇨🇳',name:'石英股份',ticker:'SZ:603688',note:'高純石英砂供應商，半導體與光纖玻璃上游。'}],
+ down:'礦物原料 → 高溫玻璃熔液 → T-glass電子級玻纖布'},
+
+{id:'t1_abf', tier:1, lane:'abf', zh:'石油化學原料（苯／丙烯系）', en:'Petrochemical Feedstock — Benzene / Propylene', role:'ABF環氧樹脂支線的起點。',
+ info:['丙烯經氯化反應生成環氧氯丙烷；苯酚與丙酮縮合生成雙酚A（BPA）。','兩者進一步反應生成環氧樹脂，是ABF增層膜不含玻纖的核心絕緣樹脂來源。'],
+ companies:[],
+ down:'石油原料 → 環氧樹脂前驅體（BPA＋環氧氯丙烷） → ABF增層膜'},
+
+{id:'t1_bt', tier:1, lane:'bt', zh:'石油化學原料（苯系／胺類）', en:'Petrochemical Feedstock — Aniline / Anhydride', role:'BT樹脂支線的起點，與ABF同源、路徑不同。',
+ info:['苯經苯胺化、再與馬來酸酐反應生成雙馬來醯亞胺（BMI）單體。','另一路徑由雙酚A與氰化鹵反應生成氰酸酯（CE），BMI與CE複合即為BT樹脂的骨架。'],
+ companies:[],
+ down:'石油原料 → BT樹脂前驅體（BMI＋氰酸酯CE） → BT樹脂基材',
+ invest:'與ABF環氧樹脂幾乎源自同一套石化原料，只是後段合成路徑分岔——這也是為什麼BT與ABF載板的成本走勢常常連動。'},
+
+// ---------------- L2 ----------------
+{id:'t2_cu', tier:2, lane:'cu', zh:'精煉銅／硫酸銅溶液', en:'Refined Copper / CuSO₄ Solution', role:'電解銅箔產線的核心電解液。',
+ info:['高純度精銅溶於硫酸形成硫酸銅電解液，是電解銅箔生產線的核心原料。','電解液中添加微量明膠、聚乙二醇（PEG）等添加劑，控制銅箔結晶與厚度均勻性。'],
+ companies:[]},
+
+{id:'t2_gl', tier:2, lane:'gl', zh:'高溫玻璃熔液（約1500°C）', en:'Molten Glass (~1500°C)', role:'整段玻纖製程設備門檻最高的一步。',
+ info:['礦物原料於池爐中高溫熔融成均質玻璃液。','再經白金—銠合金噴嘴（bushing）拉製成直徑僅數微米的玻璃絲，後續再上膠、集束、織布。'],
+ companies:[],
+ invest:'一條高端電子布產線設備投資就超過5億人民幣，高端窯爐甚至可能超過15億人民幣，且擴產週期長達2年以上——這是T-glass供給彈性極低的根本原因。'},
+
+{id:'t2_abf', tier:2, lane:'abf', zh:'環氧樹脂前驅體（BPA＋環氧氯丙烷）', en:'Epoxy Resin Precursor', role:'ABF膜的樹脂半成品。',
+ info:['雙酚A二縮水甘油醚與雙酚A反應，生成不同分子量的環氧樹脂。','室溫下為黏稠清澈液體（液態環氧樹脂）或無色固體（固態環氧樹脂），依分子量決定後續加工方式。'],
+ companies:[]},
+
+{id:'t2_bt', tier:2, lane:'bt', zh:'BT樹脂前驅體（BMI＋氰酸酯CE）', en:'BMI + Cyanate Ester Precursor', role:'BT樹脂的兩種骨架原料。',
+ info:['馬來酸酐與二元胺以2:1比例反應生成雙馬來醯亞胺酸，環化後成為BMI單體。','氰酸酯可與環氧樹脂、BMI等熱固性材料混合，形成相容性佳的複合樹脂體系。'],
+ companies:[]},
+
+// ---------------- L3 ----------------
+{id:'t3_cu', tier:3, lane:'cu', zh:'超薄電解銅箔', en:'Ultra-thin Electrolytic Copper Foil', role:'線路精細度的直接限制因素。',
+ info:['銅箔厚度直接影響線路精細程度：越薄、側蝕越小，越利於精細線路作業。','下一代技術方向是發展小於3μm的極薄銅箔，搭配更精密的SAP製程。'],
+ companies:[
+   {flag:'🇯🇵',name:'三井金屬鉱業 Mitsui Mining & Smelting',ticker:'TSE:5706',note:'極薄銅箔技術長期領先，已量產1.5–5μm極薄箔。'},
+   {flag:'🇯🇵',name:'古河電気工業 Furukawa Electric',ticker:'TSE:5801',note:'銅箔與電子材料大廠。'}
+ ]},
+
+{id:'t3_gl', tier:3, lane:'gl', zh:'T-glass 電子級玻璃纖維布', en:'Low-CTE Electronic Glass Fabric', role:'2025–2026年AI載板供應鏈最深的單點瓶頸之一。',
+ badge:'供給吃緊',
+ info:['T-glass（低熱膨脹係數玻纖布）能有效抑制先進封裝時材料形變、翹曲。','與NE-glass並列日廠的兩種「黃金配方」玻璃材料，介電常數遠優於一般玻纖布。'],
+ companies:[
+   {flag:'🇯🇵',name:'日東紡 Nittobo',ticker:'TSE:3110',note:'T-glass主要供應商，市占約80%；NE-glass技術研發逾30年，被市場點名為AI資料中心「特需」概念股。'},
+   {flag:'🇺🇸',name:'PPG Industries',ticker:'NYSE:PPG',note:'特用玻纖布供應商之一。'}
+ ],
+ invest:'高端電子布產能擴充週期長達2年以上，短期供給彈性極低；2025–2026年AI伺服器拉貨已造成T-glass明顯缺貨，是觀察載板廠成本與交期的關鍵指標。'},
+
+{id:'t3_abf', tier:3, lane:'abf', zh:'ABF 增層膜', en:'Ajinomoto Build-up Film', role:'FC-BGA高階載板不可替代的絕緣介電層。',
+ badge:'近乎獨占',
+ info:['以環氧樹脂混合玻璃微粉壓合而成的片狀半固化材料，不含玻纖，可實現SAP半加成製程，適合高階細線路。','主要應用於CPU、GPU、ASIC等伺服器晶片，以及部分車用晶片的FC-BGA封裝。'],
+ companies:[{flag:'🇯🇵',name:'味の素 Ajinomoto',ticker:'TSE:2802',note:'全球ABF膜市占約95%，近乎獨家供應。'}],
+ invest:'味の素已於2026年Q3宣布ABF膜漲價30%，並規劃岐阜第三座新廠、目標2032年量產——反映其在AI伺服器ABF載板供應鏈中近乎不可取代的議價能力，是整條鏈成本最關鍵的觀察點。'},
+
+{id:'t3_bt', tier:3, lane:'bt', zh:'BT 樹脂基材', en:'Bismaleimide-Triazine Resin', role:'尺寸穩定、可靠性高的傳統載板材料。',
+ info:['不容易熱漲冷縮、尺寸穩定、材質硬，高玻璃化溫度與低介電損耗使其適合可靠性要求高的封裝。','主要用於記憶體、MEMS、RF、LED等晶片的WB/CSP載板。'],
+ companies:[
+   {flag:'🇯🇵',name:'三菱瓦斯化學 Mitsubishi Gas Chemical',ticker:'TSE:4182',note:'BT樹脂原始研發廠商。'},
+   {flag:'🇯🇵',name:'Resonac Holdings 力森諾科',ticker:'TSE:4004',note:'原日立化成與昭和電工合併而成，BT/CCL材料主要供應商之一。'}
+ ],
+ invest:'MGC與Resonac的BT/CCL材料已宣布自2026年4月1日起調漲約30%，是中游載板廠（尤其BT產品線）成本端的重要觀察變數。'},
+
+{id:'t3_ccl', tier:3, lane:'merge', zh:'銅箔基板 CCL', en:'Copper Clad Laminate', role:'銅箔＋玻纖布＋環氧樹脂熱壓合而成的共通基材。',
+ info:['由銅箔與非導電複合材料（玻纖布、環氧樹脂）熱壓而成，是BT載板與一般PCB共通的核心基材。','台廠在中低階CCL具備全球競爭力，是「台光電／聯茂／台燿」這類CCL三雄的主戰場。'],
+ companies:[
+   {flag:'🇹🇼',name:'台光電 EMC',ticker:'TWSE:2383'},
+   {flag:'🇹🇼',name:'聯茂 ITEQ',ticker:'TWSE:6213'},
+   {flag:'🇹🇼',name:'台燿 TUC',ticker:'TWSE:6274'}
+ ],
+ up:'匯流自：超薄電解銅箔 ＋ T-glass玻纖布 ＋ 環氧樹脂'},
+
+// ---------------- Glass Core Substrate (emerging, parallel track) ----------------
+{id:'tg_material', tier:'G', lane:'gmat', zh:'玻璃基板材料本身', en:'Substrate-grade Glass Composition', role:'決定CTE匹配、介電損耗與良率上限的最底層。',
+ info:[
+  '主要供應商集中在少數歐美日廠商手上，配方差異會直接影響後續TGV鑽孔與RDL增層的良率。',
+  'Corning（康寧）已於2023年發表玻璃核心基板平台，是目前技術形象最領先的材料商之一。',
+  '三星集團已宣布與住友化學成立合資公司、自製玻璃核心材料，目的是降低對單一供應商的依賴。'],
+ companies:[
+  {flag:'🇺🇸',name:'Corning 康寧',ticker:'NYSE:GLW',note:'2023年發表玻璃核心基板平台，商用送樣持續推進中。'},
+  {flag:'🇯🇵',name:'AGC（旭硝子）',ticker:'TSE:5201',note:'特殊玻璃配方涵蓋硼矽酸鹽、鋁矽酸鹽等多種組成，產能橫跨日本、比利時、台灣。'},
+  {flag:'🇩🇪',name:'Schott 蕭特',ticker:'未上市（蔡司基金會持有）',note:'2024年完成收購QSIL高純度石英玻璃業務，強化先進封裝材料布局。'},
+  {flag:'🇯🇵',name:'日本電気硝子 NEG',ticker:'TSE:5214',note:'2024年推出可用CO₂雷射鑽孔的GC Core玻璃陶瓷基板。'},
+  {flag:'🇯🇵',name:'住友化學 Sumitomo Chemical',ticker:'TSE:4005',note:'與三星合資開發玻璃核心專用材料。'}
+ ]},
+
+{id:'tg_equip', tier:'G', lane:'gequip', zh:'TGV玻璃穿孔與精密加工設備', en:'Through-Glass-Via (TGV) Equipment', role:'玻璃易碎，鑽孔、薄化、切割的良率幾乎決定整條鏈能不能放量。',
+ info:[
+  'TGV（玻璃穿孔）是玻璃基板最關鍵的製程步驟，需要雷射精準鑽出大量微孔並完成金屬化，與面板廠既有的雷射切割、剝離工藝有部分共通性。',
+  '台廠多半從面板設備或既有雷射鑽孔業務切入，目前處於送樣驗證、產能尚小的階段。'],
+ companies:[
+  {flag:'🇩🇪',name:'LPKF Laser',ticker:'XETRA:LPK',note:'與Fraunhofer研究機構等共組Glass Panel Technology Group，推動TGV設備標準化。'},
+  {flag:'🇹🇼',name:'雷科',ticker:'TWSE:6207',note:'主攻TGV雷射穿孔設備，同步切入CoWoS檢測與TSV鑽孔；市場預估2026年設備營收成長逾35%。'},
+  {flag:'🇹🇼',name:'東捷',ticker:'TWSE:8064',note:'以「雷射＋真空＋光學」技術切入面板級封裝（FOPLP）與TGV解決方案。'},
+  {flag:'🇹🇼',name:'正達',ticker:'TWSE:3149',note:'具奈米級玻璃加工能力，因客戶「去中化」需求獲康寧主動接觸合作。'},
+  {flag:'🇹🇼',name:'宸鴻 TPK-KY',ticker:'TWSE:3673',note:'觸控玻璃加工背景跨入TGV，台灣試產線規劃2026年中建置完成。'},
+  {flag:'🇹🇼',name:'大量科技',ticker:'TWSE:3167',note:'PCB高階鑽孔／背鑽機起家，切入TGV鑽孔與高精度對位設備，同步發展半導體量測業務。'},
+  {flag:'🇹🇼',name:'志聖',ticker:'TWSE:2467',note:'乾膜貼合、Curing烘烤、Bonder等設備，對應玻璃基板試產期的壓合烘烤與暫時鍵合需求，常與友威科(3580)並列鍍膜／熱處理設備族群。'}
+ ]},
+
+{id:'tg_titansus', tier:'G', lane:'gequip', zh:'鈦昇 — TGV設備純度最高的指標股', en:'Titansus — TGV Laser Equipment', role:'雷射鑽孔、解膠、電漿清洗一站包辦，主導「E-Core Sys.玻璃基板大聯盟」。',
+ badge:'設備純度最高',
+ companies:[{flag:'🇹🇼',name:'鈦昇',ticker:'TWSE:8027',note:'營收結構以雷射設備為主，是少數同時具備TGV鑽孔、雷射解膠、電漿清洗一站式方案的台廠。'}],
+ info:[
+  '主導「E-Core Sys. 玻璃基板大聯盟」，整合上下游廠商共同推進TGV技術標準化。',
+  '據報導已完成美系客戶驗證並進入交機階段，訂單能見度看到2027年。',
+  '2026年股價波動劇烈，從年初百元附近一度衝上近300元，5月曾兩度被交易所列為注意／處置股，反映玻璃基板題材資金博弈激烈。'],
+ invest:'是目前市場公認「題材最純」的玻璃基板設備股，但也正因為純度高，股價對任何驗證進度的風吹草動都特別敏感——上漲快、回檔也可能快，籌碼面波動不小，不是只看基本面就夠，留意是否再被列為注意／處置股。'},
+
+{id:'tg_intel', tier:'G', lane:'gplayer', zh:'Intel — 玻璃核心基板技術領先者', en:'Intel Glass Core Substrate (GCS)', role:'目前公開進度最快、最常被當作產業指標的廠商。',
+ badge:'技術領先',
+ companies:[{flag:'🇺🇸',name:'Intel',ticker:'NASDAQ:INTC',note:'與L7終端應用的Intel為同一家公司，此處聚焦其玻璃基板技術進度。'}],
+ info:[
+  '已在Arizona Chandler廠驗證1微米等級的RDL線路，是業界最細的玻璃基板線路紀錄之一。',
+  '2026年初於NEPCON JAPAN展出整合EMIB（嵌入式多晶片互連橋接）的「厚芯」玻璃基板，採10-2-10結構，封裝尺寸可達78×77mm、矽晶面積逾1,700mm²，用來突破單一光罩尺寸限制。',
+  '2025年9月Intel曾公開駁斥「可能因營運壓力退出玻璃基板業務」的傳言，重申將按原計畫推進商用化。'],
+ invest:'據報導Intel也在評估把600項以上的玻璃基板專利開放授權，若成真可能加速包含台廠在內的整個產業的技術追趕速度。'},
+
+{id:'tg_skc', tier:'G', lane:'gplayer', zh:'SKC／Absolics — 全球首座量產級玻璃基板廠', en:'SKC / Absolics', role:'速度優先策略：先蓋廠卡位，技術標準由先量產者制定。',
+ badge:'量產進度最快',
+ companies:[{flag:'🇰🇷',name:'SKC／Absolics',ticker:'KRX:011790（SKC母公司）',note:'Absolics為SKC於2021年分拆成立的玻璃基板專責子公司，未單獨上市。'}],
+ info:[
+  'Absolics在美國喬治亞州的工廠是全球第一座專門生產玻璃基板的量產設施，曾獲美國CHIPS法案最高7,500萬美元的補助。',
+  '據報導已交付雛形玻璃基板給「全球前三大GPU設計商」（市場普遍解讀為AMD）測試，並規劃月產能由4,000片擴大到8,000片。',
+  '母公司SKC據報導已將現金增資金額約六成挹注Absolics，加速產品開發與產能擴張。'],
+ invest:'設廠在美國也讓Absolics較能繞開部分地緣政治風險，並貼近超大型雲端業者與CHIPS法案的供應鏈在地化政策方向。'},
+
+{id:'tg_semco', tier:'G', lane:'gplayer', zh:'三星電機（玻璃基板進度）', en:'Samsung Electro-Mechanics — Glass Substrate', role:'已從先進研發單位轉為事業化執行團隊，指標意義濃厚。',
+ companies:[{flag:'🇰🇷',name:'Samsung Electro-Mechanics',ticker:'KRX:009150',note:'與L5傳統載板業務為同一家公司，此處聚焦其玻璃基板專案進度。'}],
+ info:[
+  '據報導玻璃基板專案已從先進研發單位轉移至事業部門，訊號是技術逐漸成熟、準備進入商業化執行階段。',
+  '目標是2027年起玻璃基板進入全面放量期，目前正與包含國際半導體大廠在內的客戶共同開發樣品。',
+  '三星集團整體展現較強的供應鏈整合能力，三星電子本身的應用導入規劃約落在2028年前後。']},
+
+{id:'tg_lginnotek', tier:'G', lane:'gplayer', zh:'LG Innotek（玻璃基板進度）', en:'LG Innotek — Glass Substrate', role:'進場較晚，靠與康寧合作、加上既有高密度互連經驗追趕。',
+ companies:[{flag:'🇰🇷',name:'LG Innotek',ticker:'KRX:011070',note:'與L5傳統載板業務為同一家公司，此處聚焦其玻璃基板專案進度。'}],
+ info:[
+  '與玻璃材料龍頭康寧簽署共同研發協議，補足自身材料端經驗的不足。',
+  '既有全球最大相機模組供應商、車用Rigid-Flex電路板的高密度互連經驗，可望轉用到玻璃基板的精密線路上。',
+  '在龜尾（Gumi）建置試產線，可處理510mm×510mm的大尺寸玻璃面板（明顯大於常見300mm晶圓），目標是用更大面板攤低單位成本。']},
+
+{id:'tg_unimicron_glass', tier:'G', lane:'gplayer', zh:'欣興電子（玻璃基板進度）', en:'Unimicron — Glass Substrate', role:'台灣載板龍頭，同時也是Intel的研發合作夥伴。',
+ badge:'台廠指標',
+ companies:[{flag:'🇹🇼',name:'欣興電子',ticker:'TWSE:3037',note:'與L5傳統ABF載板業務為同一家公司，此處聚焦其玻璃基板專案進度。'}],
+ info:[
+  '欣興董事長曾子章曾公開表示，最快可在2026年3月進行樣品驗證、接續產線裝機，較樂觀情境下量產時點落在2027至2028年。',
+  '身為Intel的研發合作夥伴，欣興可望沿用既有的高階載板客戶關係，是傳統載板廠中被認為受惠面最廣的一家。'],
+ invest:'短期仍屬「先卡位、後放量」性質，2026年的股價反應通常領先實際營收貢獻，留意法說會是否揭露具體送樣與裝機進度。'},
+
+{id:'tg_tw_others', tier:'G', lane:'gplayer', zh:'南電／景碩／臻鼎-KY（玻璃基板布局）', en:'Nan Ya PCB / Kinsus / Zhen Ding', role:'載板三雄的另外兩家，加上PCB龍頭臻鼎-KY同步卡位。',
+ companies:[
+  {flag:'🇹🇼',name:'南亞電路板',ticker:'TWSE:8046'},
+  {flag:'🇹🇼',name:'景碩科技',ticker:'TWSE:3189'},
+  {flag:'🇹🇼',name:'臻鼎-KY',ticker:'TWSE:4958'}
+ ],
+ info:[
+  '南電、景碩同步投入玻璃核心基板的研發與送樣，放量時程與欣興相近，普遍預期落在2027年中以後。',
+  '臻鼎-KY以PCB起家，近年積極切入高階載板與AI PCB，管理層表示玻璃基板「可能對某些高階產品有好處」，態度相對審慎。']},
+
+{id:'tg_panel_vets', tier:'G', lane:'gplayer', zh:'面板背景切入者：群創／友達', en:'Innolux / AUO — Panel-heritage Entrants', role:'用幾十年的LCD玻璃處理經驗，跨界搶玻璃基板的入場券。',
+ companies:[
+  {flag:'🇹🇼',name:'群創 Innolux',ticker:'TWSE:3481'},
+  {flag:'🇹🇼',name:'友達 AUO',ticker:'TWSE:2409'}
+ ],
+ info:[
+  '兩家公司在面板（LCD/OLED）產業累積數十年的大尺寸玻璃切割、薄化、處理經驗，被視為跨入玻璃基板領域的潛在黑馬。',
+  '相較傳統載板廠，面板廠的優勢在大尺寸玻璃面板的良率與成本控制，劣勢則是精密電路增層（RDL）經驗相對較淺。']},
+
+{id:'tg_tsmc', tier:'G', lane:'gplayer', zh:'台積電 — FOPLP／CoPoS（面板級玻璃封裝）', en:'TSMC — Fan-Out Panel-Level Packaging on Glass', role:'先進封裝龍頭從晶圓級走向面板級的關鍵一步。',
+ badge:'需求拉動者',
+ companies:[{flag:'🇹🇼',name:'台積電',ticker:'TWSE:2330（ADR NYSE:TSM）'}],
+ info:[
+  '台積電原本主導的CoWoS是「晶圓級」先進封裝，玻璃基板將其再推進到「面板級」——即FOPLP（扇出型面板級封裝）／CoPoS（Chip-on-Panel-on-Substrate）。',
+  '據報導試產線已於近期啟動，目標是用更大的面板尺寸取代圓形晶圓，攤低單位成本、容納更多顆AI晶片與HBM。'],
+ invest:'台積電的動向通常是台灣設備與材料供應鏈最重要的需求訊號之一，若CoPoS進度超預期，雷科、東捷、正達等設備／加工廠可能是最先反應的一群。'},
+
+{id:'tg_chem', tier:'G', lane:'gchem', zh:'化學製程與濕製程封測代工', en:'Wet-Process Chemicals & OSAT', role:'TGV鑽孔後還需要金屬化、蝕刻、清洗，化學品與濕製程代工同樣不可少。',
+ info:['TGV鑽孔之後，玻璃基板仍需要高附著力緩衝層、特殊蝕刻化學藥劑與電鍍金屬化等濕製程，技術門檻與既有ABF/BT載板製程有部分共通、但也有針對玻璃材質的客製化需求。'],
+ companies:[
+  {flag:'🇹🇼',name:'弘塑',ticker:'TWSE:3131',note:'濕製程設備與化學品供應商，切入玻璃基板濕製程。'},
+  {flag:'🇹🇼',name:'辛耘',ticker:'TWSE:3583',note:'半導體濕製程設備代理與整合商，同步布局玻璃基板相關製程。'},
+  {flag:'🇹🇼',name:'日月光投控',ticker:'TWSE:3711',note:'已於L6封裝測試廠介紹過；在玻璃基板這條新賽道上，同樣是封裝與測試端的潛在受惠者。'}
+ ]},
+
+// ---------------- L4 ----------------
+{id:'t4_chem', tier:4, lane:'proc', zh:'製程化學品（光阻／蝕刻／電鍍）', en:'Process Chemicals', role:'決定線路良率的耗材層。',
+ info:['ABF載板生產過程中使用乾膜、濕膜、光阻、蝕刻劑、顯影劑等化學材料。','高階ABF載板中，功能性濕電子化學品成本占比約10–12%，其中約70–80%為沉銅與電鍍用化學品，其餘為顯影、閃蝕等電子化學品。'],
+ companies:[]},
+
+{id:'t4_laser', tier:4, lane:'proc', zh:'雷射鑽孔設備', en:'Laser Drilling Equipment', role:'層間互連（via）的關鍵製程設備。',
+ info:['微盲孔（via）雷射鑽孔是載板層間互連的關鍵製程，直接影響良率與交期。','AI時代載板層數從6層擴增到20層以上，使鑽孔量暴增、設備交期明顯拉長。'],
+ companies:[
+   {flag:'🇯🇵',name:'三菱電機 Mitsubishi Electric',ticker:'TSE:6503',note:'ABF/BT載板雷射鑽孔設備主導廠商之一。'},
+   {flag:'🇺🇸',name:'ESI（MKS Instruments）',ticker:'NASDAQ:MKSI',note:'ESI雷射鑽孔設備已併入MKS Instruments。'},
+   {flag:'🇨🇳',name:'大族雷射 Han\'s Laser',ticker:'SZSE:002008',note:'中系雷射設備廠，積極切入載板鑽孔市場。'},
+   {flag:'🇩🇪',name:'LPKF Laser',ticker:'XETRA:LPK',note:'歐系雷射加工設備廠。'}
+ ]},
+
+// ---------------- L5 (substrate makers) ----------------
+{id:'t5_unimicron', tier:5, lane:'maker', zh:'欣興電子 Unimicron', en:'Unimicron Technology', role:'橫跨PCB/HDI/FPC/載板的綜合平台股，全球載板市占第一。',
+ badge:'市占第一',
+ companies:[{flag:'🇹🇼',name:'欣興電子',ticker:'TWSE:3037'}],
+ info:[
+  '不只是ABF載板廠，而是橫跨PCB、HDI、FPC、Rigid-Flex與載板的綜合型平台股。',
+  '16層以上高階ABF產品營收占比達60%，技術上可做到32層，居台廠之冠。',
+  '為Amazon、Microsoft、Google、Meta四大CSP（雲端服務供應商）的載板主要供應商，也是NVIDIA Blackwell GPU平台第2供應商。'],
+ invest:'全球載板市占約16.0%，是目前全球唯一單一廠商市占破15%的領導廠商。'},
+
+{id:'t5_nanya', tier:5, lane:'maker', zh:'南亞電路板 Nan Ya PCB', en:'Nan Ya PCB', role:'載板本業最純粹，市場常視為ABF載板代表股。',
+ companies:[{flag:'🇹🇼',name:'南亞電路板',ticker:'TWSE:8046'}],
+ info:[
+  'ABF月產能約2,800萬顆，產品組合以網通載板為主（占比約65–70%），其餘主要是AMD CPU、GPU載板。',
+  '相較欣興的多角化，南電業務結構更集中在載板本業，股價對ABF景氣的敏感度也相對較高。'],
+ invest:'全球載板市占約8.7%，與網通／AI伺服器需求連動性高。'},
+
+{id:'t5_kinsus', tier:5, lane:'maker', zh:'景碩科技 Kinsus', en:'Kinsus Interconnect Technology', role:'ABF與BT載板皆有布局的中型廠。',
+ companies:[{flag:'🇹🇼',name:'景碩科技',ticker:'TWSE:3189'}],
+ info:[
+  '技術層次上，欣興可做到32層、景碩14層、南電8至16層，三者定位明顯分層。',
+  '受T-glass、銅箔、鑽針等原材料短缺拖累，潛在營收影響估約10–15%，是觀察原料瓶頸傳導效應的指標股之一。']},
+
+{id:'t5_ibiden', tier:5, lane:'maker', zh:'Ibiden イビデン', en:'Ibiden Co.', role:'日廠載板代表，FC-BGA高階載板要角。',
+ companies:[{flag:'🇯🇵',name:'Ibiden',ticker:'TSE:4062'}],
+ info:['深耕FC-BGA高階載板與陶瓷基板雙領域，是NVIDIA、Intel等高階CPU/GPU載板的重要供應商。'],
+ invest:'全球載板市占約9.3%。'},
+
+{id:'t5_shinko', tier:5, lane:'maker', zh:'新光電気工業 Shinko Electric', en:'Shinko Electric Industries', role:'半導體封裝整合廠，2025年已私有化下市。',
+ badge:'已下市', 
+ companies:[{flag:'🇯🇵',name:'新光電気工業',ticker:'原TSE:6967（已下市）'}],
+ info:[
+  '業務涵蓋BGA／導線架基板、電子材料（絕緣膜、導電膏）與封裝代工三大區塊，是日本半導體後段製程的整合型廠商。',
+  '2025年6月經要約收購（Tender Offer）後，股份已從東證Prime市場下市並私有化，目前非公開發行股票，投資人無法在公開市場買賣。'],
+ invest:'這是查資料時很容易踩的坑——很多舊文章仍把6967列為「可投資標的」，但其實已經買不到了，僅能作為產業地位參考。'},
+
+{id:'t5_semco', tier:5, lane:'maker', zh:'三星電機 Samsung Electro-Mechanics', en:'SEMCO', role:'全球載板市占第二，三星集團內部核心供應商。',
+ companies:[{flag:'🇰🇷',name:'Samsung Electro-Mechanics',ticker:'KRX:009150'}],
+ info:['全球載板市占約9.9%，居全球第二。','除供應三星集團內部半導體與被動元件外，也切入AI伺服器FC-BGA領域。']},
+
+{id:'t5_lginnotek', tier:5, lane:'maker', zh:'LG伊諾特 LG Innotek', en:'LG Innotek', role:'LG集團零組件廠，載板為其中一塊版圖。',
+ companies:[{flag:'🇰🇷',name:'LG Innotek',ticker:'KRX:011070'}],
+ info:['業務以基板互連、相機模組材料等為主，近年同步布局基板技術升級，載板占其營收比重相對欣興、南電低。']},
+
+{id:'t5_atands', tier:5, lane:'maker', zh:'AT&S', en:'AT&S Austria Technologie & Systemtechnik', role:'歐洲唯一具規模的高階載板廠。',
+ companies:[{flag:'🇦🇹',name:'AT&S',ticker:'Vienna:ATS'}],
+ info:['全球載板市占約9.1%。','積極於馬來西亞Kulim擴建AI伺服器用ABF載板產能，並同步上修2025/26會計年度展望，是觀察「非亞洲傳統三強」載板供給的重要指標。']},
+
+// ---------------- L6 (OSAT) ----------------
+{id:'t6_ase', tier:6, lane:'osat', zh:'日月光投控 ASE Technology Holding', en:'ASE Technology Holding', role:'全球最大封測代工集團。',
+ companies:[{flag:'🇹🇼',name:'日月光投控',ticker:'TWSE:3711（ADR NYSE:ASX）'}],
+ info:['整合原日月光與矽品產能後組成的封測控股集團，是欣興、南電等台廠載板的最大下游客戶之一。','深度參與CoWoS等先進封裝服務，是AI晶片封裝鏈的核心節點之一。']},
+
+{id:'t6_amkor', tier:6, lane:'osat', zh:'Amkor Technology', en:'Amkor Technology', role:'美系最大封測廠。',
+ companies:[{flag:'🇺🇸',name:'Amkor Technology',ticker:'NASDAQ:AMKR'}],
+ info:['客戶涵蓋高通、超微等大型IC設計公司。','近年加碼美國本土先進封裝產能，呼應半導體供應鏈在地化趨勢。']},
+
+{id:'t6_jcet', tier:6, lane:'osat', zh:'江蘇長電科技 JCET', en:'JCET Group', role:'中國最大封測廠。',
+ companies:[{flag:'🇨🇳',name:'江蘇長電科技',ticker:'SH:600584'}],
+ info:['主要服務中國本土及部分國際IC設計客戶，在中低階載板與封裝需求上扮演重要角色。']},
+
+{id:'t6_powertech', tier:6, lane:'osat', zh:'力成科技 Powertech Technology', en:'Powertech Technology', role:'記憶體封測見長的台廠。',
+ companies:[{flag:'🇹🇼',name:'力成科技',ticker:'TWSE:6239'}],
+ info:['以DRAM/NAND記憶體封測為核心強項。','是BT載板（WB-BGA/WB-CSP）下游需求的重要觀察指標。']},
+
+// ---------------- L7 (end markets) ----------------
+{id:'t7_aiserver', tier:7, lane:'end', zh:'AI伺服器／GPU', en:'AI Server & GPU', role:'目前載板需求成長最快、規格要求最高的應用。',
+ badge:'高成長',
+ companies:[{flag:'🇺🇸',name:'NVIDIA',ticker:'NASDAQ:NVDA'},{flag:'🇺🇸',name:'AMD',ticker:'NASDAQ:AMD'},{flag:'🇺🇸',name:'Broadcom',ticker:'NASDAQ:AVGO'}],
+ info:['採用最高階ABF FC-BGA載板（20層以上），是2024–2030年載板需求成長最快的應用，預估CAGR約22.68%。','NVIDIA Blackwell平台帶動載板層數與面積同步擴大，是T-glass、ABF膜缺貨的主要需求推手。']},
+
+{id:'t7_cpu', tier:7, lane:'end', zh:'PC／伺服器 CPU', en:'PC & Server CPU', role:'目前載板第一大下游市場。',
+ companies:[{flag:'🇺🇸',name:'Intel',ticker:'NASDAQ:INTC'},{flag:'🇺🇸',name:'AMD',ticker:'NASDAQ:AMD'}],
+ info:['PC仍是載板第一大下游市場，占整體市場約39%。','Intel近年同步擴大自有先進封裝與基板產能投資，部分訂單會自製而非完全外包。']},
+
+{id:'t7_network', tier:7, lane:'end', zh:'網通設備／5G基站', en:'Networking & 5G', role:'南電的產品組合主力。',
+ companies:[{flag:'🇺🇸',name:'Broadcom',ticker:'NASDAQ:AVGO'},{flag:'🇺🇸',name:'Marvell',ticker:'NASDAQ:MRVL'}],
+ info:['南電網通載板占其產品組合約65–70%，是中高階ABF載板相對穩定的需求基本盤，景氣循環性較AI伺服器低。']},
+
+{id:'t7_mobile', tier:7, lane:'end', zh:'智慧型手機 AP／基頻晶片', en:'Mobile AP / Baseband', role:'以BT FC-CSP／WB-CSP為主的應用。',
+ companies:[{flag:'🇺🇸',name:'Qualcomm',ticker:'NASDAQ:QCOM'},{flag:'🇹🇼',name:'聯發科 MediaTek',ticker:'TWSE:2454'},{flag:'🇺🇸',name:'Apple',ticker:'NASDAQ:AAPL'}],
+ info:['多採用面積較小的BT FC-CSP／WB-CSP載板，封裝形式以高整合度、輕薄化為訴求。']},
+
+{id:'t7_memory', tier:7, lane:'end', zh:'記憶體 DRAM／NAND', en:'Memory', role:'力成等記憶體封測廠的核心下游需求來源。',
+ companies:[{flag:'🇰🇷',name:'Samsung Electronics',ticker:'KRX:005930'},{flag:'🇰🇷',name:'SK Hynix',ticker:'KRX:000660'},{flag:'🇺🇸',name:'Micron',ticker:'NASDAQ:MU'}],
+ info:['主要採用BT WB-BGA載板。','HBM（高頻寬記憶體）需求隨AI伺服器升溫，是記憶體載板規格升級的重要變數。']},
+
+{id:'t7_auto', tier:7, lane:'end', zh:'車用電子／ADAS', en:'Automotive Electronics', role:'長期成長題材，但驗證門檻高。',
+ companies:[],
+ info:['車用對載板可靠性要求高，多採BT載板或中階ABF載板。','驗證週期長、認證門檻高，是未來成長性題材之一，但放量速度通常慢於消費性電子與AI伺服器。']},
+];
+
+// ---------- render helpers ----------
+function chipHTML(c){
+  return `<span class="chip">${c.flag?c.flag+' ':''}${c.ticker?`<b>${c.ticker}</b>`:c.name}</span>`;
+}
+
+function cardHTML(n){
+  const chips = (n.companies||[]).slice(0,3).map(chipHTML).join('');
+  const more = (n.companies||[]).length>3 ? `<span class="chip">+${n.companies.length-3}</span>` : '';
+  const badge = n.badge ? `<span class="badge${n.badge.includes('下市')?' warn':''}">${n.badge}</span>` : '';
+  return `<button class="node-card" style="--c:${LANE_VAR[n.lane]||'var(--copper)'}" data-id="${n.id}">
+    ${badge}
+    <span class="eyebrow2">${TIER_LABEL[n.tier]} · ${LANE_LABEL[n.lane]||''}</span>
+    <h3>${n.zh}</h3>
+    <span class="en">${n.en}</span>
+    <p class="role">${n.role}</p>
+    <div class="chips">${chips}${more}</div>
+    <span class="tap">點看詳細 →</span>
+  </button>`;
+}
+
+function fillGrid(containerId, nodes){
+  document.getElementById(containerId).innerHTML = nodes.map(cardHTML).join('');
+}
+
+// L1, L2 : 4-lane rows in fixed order
+const LANE_ORDER = ['cu','gl','abf','bt'];
+function byLane(tier){
+  return LANE_ORDER.map(l => DATA.find(n=>n.tier===tier && n.lane===l)).filter(Boolean);
+}
+fillGrid('grid-l1', byLane(1));
+fillGrid('grid-l2', byLane(2));
+fillGrid('grid-l3', byLane(3));
+
+// merge card under L3
+const ccl = DATA.find(n=>n.id==='t3_ccl');
+document.getElementById('merge-l3').innerHTML = `
+  <div class="merge-card" data-id="${ccl.id}">
+    <div class="arrowrow">↘ 銅箔　＋　↙ 玻纖布　＋　環氧樹脂　匯流為——</div>
+    <strong>${ccl.zh}　<span style="font-family:var(--mono); font-size:11px; color:var(--text-faint);">${ccl.en}</span></strong>
+    <p class="role" style="margin:6px 0 0;">${ccl.role}</p>
+    <div class="chips">${(ccl.companies||[]).map(chipHTML).join('')}</div>
+  </div>`;
+
+// L4
+fillGrid('grid-l4', DATA.filter(n=>n.tier===4));
+
+// Glass core substrate (emerging track, grouped by value-chain role rather than country)
+const GLASS_LANES = [
+  {key:'gmat', icon:'🧪', label:'玻璃材料本身 Glass Material'},
+  {key:'gequip', icon:'🔬', label:'TGV雷射穿孔與精密加工設備 TGV Equipment'},
+  {key:'gplayer', icon:'🏭', label:'載板增層／RDL／面板級封裝整合（主戰場）'},
+  {key:'gchem', icon:'⚗️', label:'化學製程與濕製程封測代工 Process Chemicals & OSAT'},
+];
+function renderGlassGroups(containerId){
+  const html = GLASS_LANES.map(g=>{
+    const items = DATA.filter(n=>n.tier==='G' && n.lane===g.key);
+    if(!items.length) return '';
+    return `<div>
+      <div class="group-head"><span class="flag">${g.icon}</span><h3>${g.label}</h3></div>
+      <div class="group-grid">${items.map(cardHTML).join('')}</div>
+    </div>`;
+  }).join('');
+  document.getElementById(containerId).innerHTML = html;
+}
+renderGlassGroups('grid-glass');
+
+// L5, L6 grouped by country
+function groupByCountry(tier, order){
+  const nodes = DATA.filter(n=>n.tier===tier);
+  const groups = {};
+  nodes.forEach(n=>{
+    const c = (n.companies && n.companies[0]) || {flag:'',name:''};
+    const key = order.find(o=>c.flag===o.flag) ? c.flag : c.flag;
+    if(!groups[key]) groups[key] = {flag:c.flag, label:'', items:[]};
+    groups[key].items.push(n);
+  });
+  return order.filter(o=>groups[o.flag]).map(o=>({flag:o.flag, label:o.label, items:groups[o.flag].items}));
+}
+const L5_ORDER = [{flag:'🇹🇼',label:'台灣 Taiwan'},{flag:'🇯🇵',label:'日本 Japan'},{flag:'🇰🇷',label:'韓國 Korea'},{flag:'🇦🇹',label:'奧地利 Austria'}];
+const L6_ORDER = [{flag:'🇹🇼',label:'台灣 Taiwan'},{flag:'🇺🇸',label:'美國 USA'},{flag:'🇨🇳',label:'中國 China'}];
+
+function renderGroups(containerId, tier, order){
+  const groups = groupByCountry(tier, order);
+  document.getElementById(containerId).innerHTML = groups.map(g => `
+    <div>
+      <div class="group-head"><span class="flag">${g.flag}</span><h3>${g.label}</h3></div>
+      <div class="group-grid">${g.items.map(cardHTML).join('')}</div>
+    </div>`).join('');
+}
+renderGroups('grid-l5', 5, L5_ORDER);
+renderGroups('grid-l6', 6, L6_ORDER);
+
+// L7
+fillGrid('grid-l7', DATA.filter(n=>n.tier===7));
+
+// ---------- modal ----------
+const overlay = document.getElementById('modalOverlay');
+const modalBody = document.getElementById('modalBody');
+let lastFocused = null;
+
+function openModal(id){
+  const n = DATA.find(x=>x.id===id);
+  if(!n) return;
+  lastFocused = document.activeElement;
+
+  const companiesHTML = (n.companies && n.companies.length) ? `
+    <h4>相關公司</h4>
+    ${n.companies.map(c=>`
+      <div class="co-row">
+        <span class="flag">${c.flag||''}</span>
+        <span class="name">${c.name}</span>
+        ${c.ticker?`<span class="ticker">${c.ticker}</span>`:''}
+        ${c.note?`<span class="note">${c.note}</span>`:''}
+      </div>`).join('')}` : '';
+
+  const infoHTML = (n.info && n.info.length) ? `<h4>重點資訊</h4><ul class="bullets">${n.info.map(i=>`<li>${i}</li>`).join('')}</ul>` : '';
+  const investHTML = n.invest ? `<div class="invest-box"><span class="lbl">投資觀察</span>${n.invest}</div>` : '';
+  const chainHTML = (n.up||n.down) ? `<div class="chain-row">
+      ${n.up?`<span><span class="k">UP</span> ${n.up}</span>`:''}
+      ${n.down?`<span><span class="k">DOWN</span> ${n.down}</span>`:''}
+    </div>` : '';
+
+  modalBody.innerHTML = `
+    <div class="m-eyebrow">${TIER_LABEL[n.tier]}${n.lane && LANE_LABEL[n.lane] ? ' · '+LANE_LABEL[n.lane] : ''}</div>
+    <h2 id="modalTitle">${n.zh}</h2>
+    <div class="m-en">${n.en}</div>
+    <p class="role" style="font-size:14px; color:var(--text-dim);">${n.role}</p>
+    ${chainHTML}
+    ${infoHTML}
+    ${companiesHTML}
+    ${investHTML}
+  `;
+  overlay.hidden = false;
+  document.getElementById('modalClose').focus();
+  document.addEventListener('keydown', onKeydown);
+}
+
+function closeModal(){
+  overlay.hidden = true;
+  document.removeEventListener('keydown', onKeydown);
+  if(lastFocused) lastFocused.focus();
+}
+
+function onKeydown(e){
+  if(e.key === 'Escape') closeModal();
+}
+
+document.addEventListener('click', (e)=>{
+  const card = e.target.closest('[data-id]');
+  if(card){ openModal(card.getAttribute('data-id')); return; }
+  if(e.target === overlay){ closeModal(); }
+});
+document.getElementById('modalClose').addEventListener('click', closeModal);
+</script>
+
+</body>
+</html>
